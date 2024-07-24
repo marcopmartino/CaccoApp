@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "360562525749",
+    "project_id": "caccoapp-c4fab",
+    "storage_bucket": "caccoapp-c4fab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360562525749:android:b7c75089a40b6b35ab137c",
+        "android_client_info": {
+          "package_name": "it.caccoapp.caccoapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEdcGnNOUuelXtPZrt_7TPGMtJtU5Us9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
