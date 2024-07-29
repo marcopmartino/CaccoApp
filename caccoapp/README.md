@@ -1,6 +1,6 @@
-# caccoapp
+# CaccoApp
 
-Un applicazine per monitoare il cacco e fare a gara con esso
+Un applicazine per monitorare il cacco e fare a gara con esso
 
 ## Getting Started
 
