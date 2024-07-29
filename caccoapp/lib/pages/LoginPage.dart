@@ -1,14 +1,16 @@
+import 'package:CaccoApp/widgets/CustomButton.dart';
 import 'package:custom_signin_buttons/button_builder.dart';
-import 'package:custom_signin_buttons/button_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../helpers/FirebaseAuthHelper.dart';
+import '../helpers/LoginService.dart';
 import '../utility/AppColors.dart';
 import '../utility/CaccoTxt.dart';
+import '../utility/Navigation.dart';
 import '../utility/Validator.dart';
 import '../widgets/CustomDecoration.dart';
 import 'HomePage.dart';
+import 'SignupPage.dart';
 
 class LoginPage extends StatefulWidget{
   const LoginPage({super.key});
@@ -59,88 +61,82 @@ class _LoginPageState extends State<LoginPage>{
   Widget build(BuildContext context){
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(title: const Text("Login")),
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: const Text(CaccoTxt.loginAppbar),
+      ),
       body: SingleChildScrollView(
         child: Container(
-          height: size.height - 80,
+          width: size.width,
+          height: size.height,
           decoration: const BoxDecoration(
-            color: Colors.white,
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/exemple-poop.png',
+                ),
+                fit: BoxFit.cover,
+                opacity: 0.3,
+              )
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const SizedBox(height: 70),
-                Center(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(
-                      'assets/exemple-poop.png',
-                      height: 150.0,
-                      width: 150.0,
-                    ),
-                  ),
-                ), //Logo
-                const SizedBox(height: 70),
-                Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 25.0,
-                              right: 25.0,
-                              top: 60,
-                              bottom: 15
-                          ),
-                          child: TextFormField(
-                              controller: _emailTextController,
-                              validator: (value) =>
-                                  Validator.validateEmail(email: value),
-                              style: const TextStyle(color: Colors.white),
-                              decoration: CustomDecoration.loginInputDecoration('Email')
-                          ),
-                        ), //Email
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 25.0, right: 25.0, top: 15, bottom: 40
-                          ),
-                          child: TextFormField(
-                            controller: _passwTextController,
-                            validator: (value) =>
-                              Validator.validatePassword(password: value),
-                            style: const TextStyle(color: Colors.white),
-                            obscureText: true,
-                            decoration: CustomDecoration.loginInputDecoration('Password'),
-                          )
-                        )
-                      ],
-                    )), //Email&Password
-                _isProcessing
-                  ? const CircularProgressIndicator():
+          child: Stack(
+            children: <Widget>[
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    const SizedBox(height: 70),
+                    Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(
+                          'assets/exemple-poop.png',
+                          height: 150.0,
+                          width: 150.0,
+                        ),
+                      ),
+                    ), //Logo
+                    const SizedBox(height: 70),
+                    Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 25.0,
+                                  right: 25.0,
+                                  top: 60,
+                                  bottom: 15
+                              ),
+                              child: TextFormField(
+                                  controller: _emailTextController,
+                                  validator: (value) =>
+                                      Validator.validateEmail(email: value),
+                                  style: const TextStyle(color: Colors.white),
+                                  decoration: CustomDecoration.loginInputDecoration('Email')
+                              ),
+                            ), //Email
+                            Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 25.0, right: 25.0, top: 15, bottom: 40
+                                ),
+                                child: TextFormField(
+                                  controller: _passwTextController,
+                                  validator: (value) =>
+                                      Validator.validatePassword(password: value),
+                                  style: const TextStyle(color: Colors.white),
+                                  obscureText: true,
+                                  decoration: CustomDecoration.loginInputDecoration('Password'),
+                                )
+                            )
+                          ],
+                        )), //Email&Password
+                    _isProcessing
+                        ? const CircularProgressIndicator():
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          height: 50,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            color: AppColors.problemShit,
-                            borderRadius: BorderRadius.circular(30)),
-                          child: CustomSignInButton(
-                            text: "Accedi",
-                            textSize: 18,
-                            width: 50,
-                            borderRadius: 30,
-                            buttonColor: Colors.blue,
-                            textColor: Colors.white,
-                            customIcon: Icons.login,
-                            useGradient: true,
-                            setGradient: const LinearGradient(
-                                colors: [
-                                  AppColors.problemShit, AppColors.softShit],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter
-                            ),
+                        CustomElevatedIconButton(
+                            height: 50,
+                            width: 150,
                             onPressed: () async {
                               _focusEmail.unfocus();
                               _focusPassw.unfocus();
@@ -151,7 +147,7 @@ class _LoginPageState extends State<LoginPage>{
                                 });
 
                                 Object? user =
-                                await FirebaseAuthHelper.signInUsingEmailPassword(
+                                await LoginService.signInUsingEmailPassword(
                                     email: _emailTextController.text,
                                     password: _passwTextController.text
                                 );
@@ -159,8 +155,6 @@ class _LoginPageState extends State<LoginPage>{
                                 setState(() {
                                   _isProcessing = false;
                                 });
-
-                                print(user);
                                 if(user != null && user is User){
                                   if(context.mounted){
                                     Navigator.pushAndRemoveUntil(context,
@@ -175,18 +169,20 @@ class _LoginPageState extends State<LoginPage>{
 
                               }
                             },
-                          ),
+                            icon: const Icon(Icons.login),
+                            label: const Text(
+                              "Accedi",
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                            borderRadius: BorderRadius.circular(25.0)
                         ),
                         const SizedBox(height: 25),
                         InkWell(
                             onTap: (){
-                              if(context.mounted) {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => const LoginPage()
-                                    ));
-                              }
+                              Navigation.navigate(context, const SignupPage());
                             },
                             child: const Text(
                               CaccoTxt.signUpTxt,
@@ -199,9 +195,12 @@ class _LoginPageState extends State<LoginPage>{
                         ), //Signup email button
                       ],
                     )
-                ],
+                  ],
 
-          ),
+                ),
+              )
+            ],
+          )
         )
       )
     );

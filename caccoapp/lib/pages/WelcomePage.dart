@@ -1,4 +1,5 @@
 import 'package:CaccoApp/pages/HomePage.dart';
+import 'package:CaccoApp/pages/SignupPage.dart';
 import 'package:CaccoApp/utility/AppColors.dart';
 import 'package:CaccoApp/utility/CaccoTxt.dart';
 import 'package:custom_signin_buttons/button_builder.dart';
@@ -9,11 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../helpers/IconHelper.dart';
 import '../helpers/LoginService.dart';
-import '../helpers/Utils.dart';
-import '../widgets/IconFont.dart';
-import '../widgets/ThemeButton.dart';
+import '../utility/Navigation.dart';
 import 'LoginPage.dart';
 
 class WelcomePage extends StatefulWidget{
@@ -96,38 +94,45 @@ class _WelcomePageState extends State<WelcomePage>{
                 ),
                 const SizedBox(height: 40),
                 CustomSignInButton(
-                  text: "Accedi con Email",
-                  textSize: 18,
-                  customIcon: Icons.email,
+                    text: "Accedi con Email",
+                    borderRadius: 25,
+                    useGradient: true,
+                    setGradient: const LinearGradient(
+                        colors: [Colors.cyan, Colors.indigo]
+                    ),
+                    width: 300,
+                    textSize: 18,
+                    customIcon: Icons.mail_rounded,
+                    iconColor: Colors.white,
+                    textColor: Colors.white,
+                    splashColor: Colors.transparent,
+                    onPressed: (){
+                      Navigation.navigate(context, const LoginPage());
+                    }
+                ), //Email login button
+                /*CustomElevatedIconButton(
+                  label: const Text(
+                    "Accedi con Email",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  icon: const Icon(
+                      Icons.email
+                  ),
                   width: 300,
-                  borderRadius: 30,
-                  buttonColor: Colors.blue,
-                  textColor: Colors.white,
-                  iconColor: Colors.white,
-                  useGradient: true,
-                  setGradient: const LinearGradient(
-                    colors: [
-                      AppColors.problemShit, AppColors.softShit],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter
+                  borderRadius: BorderRadius.circular(30.0),
+                  gradient: const LinearGradient(
+                    colors: [AppColors.problemShit, AppColors.softShit],
                   ),
                   onPressed: (){
-                    if(context.mounted) {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => LoginPage()
-                          ));
-                    }
+                    Navigation.navigate(context, LoginPage());
                   },
-                ), //Email login button
+                ),*/
                 const SizedBox(height: 20),
                 SignInButton(
                   button: Button.Google,
                   width: 300,
-                  borderRadius: 30,
+                  borderRadius: 25,
                   textSize: 18,
-                  iconSize: 30,
                   text: CaccoTxt.googleLogin,
                   onPressed: ()  async {
                     try {
@@ -138,7 +143,7 @@ class _WelcomePageState extends State<WelcomePage>{
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (_) => HomePage()
+                                  builder: (_) => const HomePage()
                               ),
                                   (Route route) => false);
                         }
@@ -149,18 +154,12 @@ class _WelcomePageState extends State<WelcomePage>{
                       print(':)');
                     }
                   },
-                  splashColor: Colors.red,
+                  splashColor: Colors.transparent,
                 ), //Google login button
                 const SizedBox(height: 20),
                 InkWell(
                   onTap: (){
-                    if(context.mounted) {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const LoginPage()
-                          ));
-                    }
+                    Navigation.navigate(context, const SignupPage());
                   },
                   child: const Text(
                     CaccoTxt.signUpTxt,

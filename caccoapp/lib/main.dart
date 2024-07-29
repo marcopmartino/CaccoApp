@@ -1,6 +1,7 @@
 import 'package:CaccoApp/helpers/LoginService.dart';
 import 'package:CaccoApp/pages/HomePage.dart';
 import 'package:CaccoApp/pages/LoginPage.dart';
+import 'package:CaccoApp/pages/SignupPage.dart';
 import 'package:CaccoApp/pages/SplashPage.dart';
 import 'package:CaccoApp/pages/WelcomePage.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,15 +30,15 @@ Future<void> main() async{
           navigatorKey: Utils.mainAppNav,
           title: 'CaccoApp',
           theme: ThemeData(
-              primarySwatch: AppColors.getMaterialColor(AppColors.mainShit)
+              primarySwatch: AppColors.getMaterialColor(Colors.brown)
           ),
           initialRoute: '/welcomepage',
           routes: {
-            '/': (context) => SplashPage(duration: 3, goToPage: '/welcomepage'),
+            //'/': (context) => SplashPage(duration: 3, goToPage: '/homepage'),
             '/homepage': (context) => const HomePage(),
             '/welcomepage': (context) => const WelcomePage(),
             '/loginpage': (context) => const LoginPage(),
-            // '/registerpage': (context) => const RegisterPage(),
+            '/signuppage': (context) => const SignupPage(),
           }
       )
     )

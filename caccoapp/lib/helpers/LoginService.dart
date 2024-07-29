@@ -1,3 +1,4 @@
+import 'package:CaccoApp/network/ProfileNetwork.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -39,15 +40,15 @@ class LoginService extends ChangeNotifier{
 
     // Once signed in, return the UserCredential
     UserCredential userCreds = await FirebaseAuth.instance.signInWithCredential(credential);
-    if (userCreds != null){
-      _userModel = LoggedUser(
-        username: userCreds.user!.displayName,
-        email: userCreds.user!.email,
-        uid: userCreds.user!.uid,
-        gender: await getGender()
-      );
-    }
 
+    final gender = await getGender();
+    _userModel = LoggedUser(
+      username: userCreds.user!.displayName,
+      email: userCreds.user!.email,
+      id: userCreds.user!.uid,
+      gender: gender
+    );
+    ProfileNetwork.checkIfExist(userCreds.user!, gender);
     notifyListeners();
 
     return true;
@@ -84,7 +85,7 @@ class LoginService extends ChangeNotifier{
       );
 
       user = userCredential.user;
-      await user!.updateProfile(displayName: name);
+      await user!.updateDisplayName(name);
       await user.reload();
       user = auth.currentUser;
     } on FirebaseAuthException catch (e) {

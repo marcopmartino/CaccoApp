@@ -39,6 +39,9 @@ dependencies:
   provider: ^5.0.0
   custom_signin_buttons: ^1.0.2
   intl: ^0.19.0
+  font_awesome_flutter: ^10.7.0
+  path_icon: ^0.7.2
+  device_info_plus: ^9.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -85,7 +88,6 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  #fonts:
   #   - family: Roboto
   #     fonts:
   #       - asset: fonts/roboto/Roboto-Regular.tff

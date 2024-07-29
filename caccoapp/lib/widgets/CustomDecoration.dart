@@ -7,22 +7,22 @@ class CustomDecoration {
 
   static InputDecoration loginInputDecoration(String nome){
     return InputDecoration(
-        hintStyle: const TextStyle(color: Colors.white),
+        hintStyle: const TextStyle(color: Colors.black),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: const BorderSide(
-            color: Colors.white,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: const BorderSide(
             color: AppColors.heavyShit,
           ),
         ),
-        labelStyle: const TextStyle(color: Colors.white),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(
+            color: AppColors.mainShit,
+          ),
+        ),
+        labelStyle: const TextStyle(color: Colors.black),
         filled: true,
-        fillColor: AppColors.problemShit,
+        fillColor: Colors.white,
         hintText: nome);
   }
 
