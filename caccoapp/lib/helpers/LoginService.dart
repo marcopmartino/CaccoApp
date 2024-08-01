@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/LoggedUser.dart';
 
@@ -51,6 +52,9 @@ class LoginService extends ChangeNotifier{
     ProfileNetwork.checkIfExist(userCreds.user!, gender);
     notifyListeners();
 
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', true);
+
     return true;
   }
 
@@ -68,6 +72,8 @@ class LoginService extends ChangeNotifier{
   Future<void> googleSignOut() async{
     await GoogleSignIn().signOut();
     _userModel = null;
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', false);
   }
 
   static Future<User?> registerUsingEmailPassword({
@@ -123,6 +129,9 @@ class LoginService extends ChangeNotifier{
       }
     }
 
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', true);
+
     return user;
   }
 
@@ -146,6 +155,9 @@ class LoginService extends ChangeNotifier{
         return ('Email già in uso.');
       }
     }
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', true);
 
     return user;
   }

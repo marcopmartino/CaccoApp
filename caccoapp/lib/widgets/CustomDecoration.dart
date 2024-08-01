@@ -23,7 +23,8 @@ class CustomDecoration {
         labelStyle: const TextStyle(color: Colors.black),
         filled: true,
         fillColor: Colors.white,
-        hintText: nome);
+        hintText: nome,
+        labelText: nome);
   }
 
   static InputDecoration textFieldInputDecoration(String nome, String hint){

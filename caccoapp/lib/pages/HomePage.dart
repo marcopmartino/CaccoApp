@@ -1,3 +1,4 @@
+import 'package:CaccoApp/pages/homeTabs/HomeTab.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget{
@@ -12,10 +13,7 @@ class _HomePageState extends State<HomePage>{
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
+    HomeTab(),
     Text(
       'Index 1: Business',
       style: optionStyle,

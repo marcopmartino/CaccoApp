@@ -9,15 +9,20 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:CaccoApp/utility/AppColors.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 import 'helpers/Utils.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  var isLoggedIn = (prefs.getBool('isLoggedIn') == null) ? false : prefs.getBool('isLoggedIn');
 
   runApp(
     MultiProvider(
@@ -30,9 +35,10 @@ Future<void> main() async{
           navigatorKey: Utils.mainAppNav,
           title: 'CaccoApp',
           theme: ThemeData(
-              primarySwatch: AppColors.getMaterialColor(Colors.brown)
+            primarySwatch: AppColors.getMaterialColor(Colors.brown),
+            useMaterial3: false
           ),
-          initialRoute: '/welcomepage',
+          home: isLoggedIn! ? const HomePage() : const WelcomePage(),
           routes: {
             //'/': (context) => SplashPage(duration: 3, goToPage: '/homepage'),
             '/homepage': (context) => const HomePage(),

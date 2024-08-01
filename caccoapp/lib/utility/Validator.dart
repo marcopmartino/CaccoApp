@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
 class Validator {
 
@@ -89,6 +90,7 @@ class Validator {
   }
 
   static String? validateEqualPassword({required String? password, required String? chkPassword}){
+    print("${password!}   ${chkPassword!}");
     if (password == null || chkPassword == null ||
         password.isEmpty && chkPassword.isEmpty) {
       return null;

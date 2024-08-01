@@ -5,6 +5,7 @@ import 'package:CaccoApp/utility/CaccoTxt.dart';
 import 'package:custom_signin_buttons/button_builder.dart';
 import 'package:custom_signin_buttons/button_data.dart';
 import 'package:custom_signin_buttons/button_list.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -110,23 +111,6 @@ class _WelcomePageState extends State<WelcomePage>{
                       Navigation.navigate(context, const LoginPage());
                     }
                 ), //Email login button
-                /*CustomElevatedIconButton(
-                  label: const Text(
-                    "Accedi con Email",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  icon: const Icon(
-                      Icons.email
-                  ),
-                  width: 300,
-                  borderRadius: BorderRadius.circular(30.0),
-                  gradient: const LinearGradient(
-                    colors: [AppColors.problemShit, AppColors.softShit],
-                  ),
-                  onPressed: (){
-                    Navigation.navigate(context, LoginPage());
-                  },
-                ),*/
                 const SizedBox(height: 20),
                 SignInButton(
                   button: Button.Google,
