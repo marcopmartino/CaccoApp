@@ -69,4 +69,11 @@ class ProfileNetwork{
   static void updateProfile(LoggedUser user){
     _user.update(user.toMap());
   }
+
+  static void addCacco(){
+    _user.update({
+      'currentMonth': FieldValue.increment(1)
+    });
+  }
+
 }

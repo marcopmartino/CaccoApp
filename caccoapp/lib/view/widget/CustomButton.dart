@@ -1,3 +1,5 @@
+import 'package:CaccoApp/view/widget/CustomDecoration.dart';
+import 'package:CaccoApp/view/widget/TextWidgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -82,6 +84,25 @@ class CustomElevatedIconButton extends StatelessWidget {
             shape: RoundedRectangleBorder(borderRadius: borderRadius)
         ),
       ),
+    );
+  }
+}
+
+class CustomButtons{
+
+  static submit(String text, {required void Function() onPressed}){
+    return ElevatedButton(
+      style: CustomDecoration.submitButtonDecoration(),
+      onPressed: () => onPressed(),
+      child: TitleWidget.formButton(text),
+    );
+  }
+
+  static delete(String text, {required void Function() onPressed}) {
+    return ElevatedButton(
+        style: CustomDecoration.deleteButtonDecoration(),
+        onPressed: () => onPressed(),
+        child: TitleWidget.formButton(text)
     );
   }
 }

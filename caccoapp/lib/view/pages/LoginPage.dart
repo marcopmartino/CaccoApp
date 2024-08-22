@@ -1,14 +1,14 @@
-import 'package:CaccoApp/widgets/CustomButton.dart';
 import 'package:custom_signin_buttons/button_builder.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../helpers/LoginService.dart';
-import '../utility/AppColors.dart';
-import '../utility/CaccoTxt.dart';
-import '../utility/Navigation.dart';
-import '../utility/Validator.dart';
-import '../widgets/CustomDecoration.dart';
+import 'package:CaccoApp/view/widget/CustomButton.dart';
+import 'package:CaccoApp/helpers/LoginService.dart';
+import 'package:CaccoApp/utility/AppColors.dart';
+import 'package:CaccoApp/utility/CaccoTxt.dart';
+import 'package:CaccoApp/utility/Navigation.dart';
+import 'package:CaccoApp/utility/Validator.dart';
+import 'package:CaccoApp/view/widget/CustomDecoration.dart';
 import 'HomePage.dart';
 import 'SignupPage.dart';
 
@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage>{
                                   controller: _emailTextController,
                                   validator: (value) =>
                                       Validator.validateEmail(email: value),
-                                  style: const TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.black),
                                   decoration: CustomDecoration.loginInputDecoration('Email')
                               ),
                             ), //Email
@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage>{
                                   controller: _passwTextController,
                                   validator: (value) =>
                                       Validator.validatePassword(password: value),
-                                  style: const TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.black),
                                   obscureText: true,
                                   decoration: CustomDecoration.loginInputDecoration('Password'),
                                 )
@@ -187,7 +187,7 @@ class _LoginPageState extends State<LoginPage>{
                             child: const Text(
                               CaccoTxt.signUpTxt,
                               style: TextStyle(
-                                  color: AppColors.heavyShit,
+                                  color: AppColors.heavyBrown,
                                   fontSize: 18.0,
                                   decoration: TextDecoration.underline
                               ),

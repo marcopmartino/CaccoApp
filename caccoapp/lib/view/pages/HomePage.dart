@@ -1,5 +1,8 @@
-import 'package:CaccoApp/pages/homeTabs/HomeTab.dart';
+import 'package:CaccoApp/utility/AppColors.dart';
 import 'package:flutter/material.dart';
+
+import './homeTabs/HomeTab.dart';
+import 'homeTabs/SearchUsersTab.dart';
 
 class HomePage extends StatefulWidget{
   const HomePage({super.key});
@@ -14,10 +17,7 @@ class _HomePageState extends State<HomePage>{
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     HomeTab(),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
+    SearchUsersTab(),
     Text(
       'Index 2: School',
       style: optionStyle,
@@ -34,20 +34,37 @@ class _HomePageState extends State<HomePage>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
+        backgroundColor: AppColors.mainBrown,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: Image.asset(
+                'assets/exemple-poop.png',
+                height: 45.0,
+                width: 45.0,
+              ),
+            ),
+            const SizedBox(width: 25,),
+            const Text('CaccoApp'),
+          ],
+        ),
+        centerTitle: true,
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: AppColors.softBrown,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+            icon: Icon(Icons.people_alt_rounded),
+            label: 'Friends',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
@@ -55,7 +72,7 @@ class _HomePageState extends State<HomePage>{
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: AppColors.sandBrown,
         onTap: _onItemTapped,
       ),
     );

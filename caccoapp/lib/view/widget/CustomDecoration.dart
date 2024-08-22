@@ -11,13 +11,13 @@ class CustomDecoration {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: const BorderSide(
-            color: AppColors.heavyShit,
+            color: AppColors.heavyBrown,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: const BorderSide(
-            color: AppColors.mainShit,
+            color: AppColors.mainBrown,
           ),
         ),
         labelStyle: const TextStyle(color: Colors.black),
@@ -35,19 +35,19 @@ class CustomDecoration {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: const BorderSide(
-          color: AppColors.mainShit,
+          color: AppColors.mainBrown,
         ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: const BorderSide(
-          color: AppColors.mainShit,
+          color: AppColors.mainBrown,
         ),
       ),
       labelStyle: const TextStyle(
           fontSize: 20,
           fontWeight: AppFontWeight.semiBold,
-          color: AppColors.mainShit
+          color: AppColors.mainBrown
       ),
       labelText: nome,
       filled: true,
@@ -64,19 +64,19 @@ class CustomDecoration {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: const BorderSide(
-          color: AppColors.mainShit,
+          color: AppColors.mainBrown,
         ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: const BorderSide(
-          color: AppColors.mainShit,
+          color: AppColors.mainBrown,
         ),
       ),
       labelStyle: const TextStyle(
           fontSize: 20,
           fontWeight: AppFontWeight.semiBold,
-          color: AppColors.mainShit
+          color: AppColors.mainBrown
       ),
       labelText: nome,
       filled: true,
@@ -100,13 +100,13 @@ class CustomDecoration {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: const BorderSide(
-          color: AppColors.mainShit,
+          color: AppColors.mainBrown,
         ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: const BorderSide(
-          color: AppColors.mainShit,
+          color: AppColors.mainBrown,
         ),
       ),
       labelStyle: const TextStyle(color: Colors.black),
@@ -123,18 +123,18 @@ class CustomDecoration {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
           borderSide: const BorderSide(
-            color: AppColors.mainShit,
+            color: AppColors.mainBrown,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
           borderSide: const BorderSide(
-            color: AppColors.mainShit,
+            color: AppColors.mainBrown,
           ),
         ),
         labelStyle: const TextStyle(
             fontSize: 20,
-            color: AppColors.mainShit
+            color: AppColors.mainBrown
         ),
         labelText: 'Scadenza',
         filled: true,
@@ -146,7 +146,7 @@ class CustomDecoration {
   static ButtonStyle textButtonDecoration(bool isDelete){
     if(!isDelete) {
       return ElevatedButton.styleFrom(
-        foregroundColor: AppColors.softShit,
+        foregroundColor: AppColors.softBrown,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         fixedSize: const Size(250,60),
       );
@@ -161,7 +161,7 @@ class CustomDecoration {
 
   static ButtonStyle submitButtonDecoration() {
     return ElevatedButton.styleFrom(
-      backgroundColor: AppColors.softShit,
+      backgroundColor: AppColors.softBrown,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       fixedSize: const Size(280,60),
     );
@@ -169,7 +169,7 @@ class CustomDecoration {
 
   static ButtonStyle submitSmallButtonDecoration() {
     return ElevatedButton.styleFrom(
-      backgroundColor: AppColors.softShit,
+      backgroundColor: AppColors.softBrown,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
       fixedSize: const Size(180,40),
     );

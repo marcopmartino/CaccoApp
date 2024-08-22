@@ -1,9 +1,9 @@
 import 'package:CaccoApp/helpers/LoginService.dart';
-import 'package:CaccoApp/pages/HomePage.dart';
-import 'package:CaccoApp/pages/LoginPage.dart';
-import 'package:CaccoApp/pages/SignupPage.dart';
-import 'package:CaccoApp/pages/SplashPage.dart';
-import 'package:CaccoApp/pages/WelcomePage.dart';
+import 'package:CaccoApp/view/pages/HomePage.dart';
+import 'package:CaccoApp/view/pages/LoginPage.dart';
+import 'package:CaccoApp/view/pages/SignupPage.dart';
+import 'package:CaccoApp/view/pages/SplashPage.dart';
+import 'package:CaccoApp/view/pages/WelcomePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,7 +35,7 @@ Future<void> main() async{
           navigatorKey: Utils.mainAppNav,
           title: 'CaccoApp',
           theme: ThemeData(
-            primarySwatch: AppColors.getMaterialColor(Colors.brown),
+            primarySwatch: AppColors.getMaterialColor(AppColors.softBrown),
             useMaterial3: false
           ),
           home: isLoggedIn! ? const HomePage() : const WelcomePage(),

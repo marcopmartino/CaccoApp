@@ -1,7 +1,3 @@
-import 'package:CaccoApp/pages/HomePage.dart';
-import 'package:CaccoApp/pages/SignupPage.dart';
-import 'package:CaccoApp/utility/AppColors.dart';
-import 'package:CaccoApp/utility/CaccoTxt.dart';
 import 'package:custom_signin_buttons/button_builder.dart';
 import 'package:custom_signin_buttons/button_data.dart';
 import 'package:custom_signin_buttons/button_list.dart';
@@ -11,8 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../helpers/LoginService.dart';
-import '../utility/Navigation.dart';
+import 'package:CaccoApp/view/pages/HomePage.dart';
+import 'package:CaccoApp/view/pages/SignupPage.dart';
+import 'package:CaccoApp/utility/AppColors.dart';
+import 'package:CaccoApp/utility/CaccoTxt.dart';
+import 'package:CaccoApp/helpers/LoginService.dart';
+import 'package:CaccoApp/utility/Navigation.dart';
 import 'LoginPage.dart';
 
 class WelcomePage extends StatefulWidget{
@@ -148,7 +148,7 @@ class _WelcomePageState extends State<WelcomePage>{
                   child: const Text(
                     CaccoTxt.signUpTxt,
                     style: TextStyle(
-                        color: AppColors.mainShit,
+                        color: AppColors.mainBrown,
                         fontSize: 18.0,
                         decoration: TextDecoration.underline
                     ),

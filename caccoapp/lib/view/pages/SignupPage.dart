@@ -1,15 +1,15 @@
-import 'package:CaccoApp/network/ProfileNetwork.dart';
-import 'package:CaccoApp/widgets/CustomButton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:radio_group_v2/radio_group_v2.dart';
 
-import '../helpers/LoginService.dart';
-import '../utility/AppColors.dart';
-import '../utility/CaccoTxt.dart';
-import '../utility/Navigation.dart';
-import '../utility/Validator.dart';
-import '../widgets/CustomDecoration.dart';
+import 'package:CaccoApp/network/ProfileNetwork.dart';
+import 'package:CaccoApp/view/widget/CustomButton.dart';
+import 'package:CaccoApp/helpers/LoginService.dart';
+import 'package:CaccoApp/utility/AppColors.dart';
+import 'package:CaccoApp/utility/CaccoTxt.dart';
+import 'package:CaccoApp/utility/Navigation.dart';
+import 'package:CaccoApp/utility/Validator.dart';
+import 'package:CaccoApp/view/widget/CustomDecoration.dart';
 import 'HomePage.dart';
 import 'LoginPage.dart';
 
@@ -136,70 +136,12 @@ class _SignupPageState extends State<SignupPage> {
                                               labelStyle: TextStyle(
                                                 color: Colors.black,
                                               ),
-                                              activeColor: AppColors.mainShit
+                                              activeColor: AppColors.mainBrown
                                           ),
                                         ),
                                       ],
                                     )
                                   ),
-                                  /*Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 25.0, right: 25.0, top: 15.0, bottom: 15.0),
-                                      child: Column(
-                                        children: <Widget>[
-
-                                          Row(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: <Widget>[
-                                              Radio(
-                                                visualDensity: const VisualDensity(
-                                                    horizontal: VisualDensity.maximumDensity,
-                                                    vertical: VisualDensity.minimumDensity),
-                                                activeColor: AppColors.mainShit,
-                                                groupValue: _genders,
-                                                value: Genders.other,
-                                                onChanged: (Genders? value) {
-                                                  _genders = value!;
-                                                },
-                                              ),
-                                              const Text(CaccoTxt.otherTxt,
-                                                  style: TextStyle(
-                                                      fontSize: 16.0, color: Colors.black)),
-                                              //Other radio
-                                              Radio(
-                                                visualDensity: const VisualDensity(
-                                                    horizontal: VisualDensity.maximumDensity,
-                                                    vertical: VisualDensity.minimumDensity),
-                                                activeColor: AppColors.mainShit,
-                                                groupValue: _genders,
-                                                value: Genders.male,
-                                                onChanged: (Genders? value) {
-                                                  _genders = value!;
-                                                },
-                                              ),
-                                              const Text(CaccoTxt.maleTxt,
-                                                  style: TextStyle(
-                                                      fontSize: 16.0, color: Colors.black)),
-                                              //Male radio
-                                              Radio(
-                                                visualDensity: const VisualDensity(
-                                                    horizontal: VisualDensity.maximumDensity,
-                                                    vertical: VisualDensity.minimumDensity),
-                                                activeColor: AppColors.mainShit,
-                                                groupValue: _genders,
-                                                value: Genders.female,
-                                                onChanged: (Genders? value) {
-                                                  _genders = value!;
-                                                },
-                                              ),
-                                              const Text(CaccoTxt.femaleTxt,
-                                                  style: TextStyle(
-                                                      fontSize: 16.0, color: Colors.black)),
-                                              //Female radio
-                                            ],
-                                          ),
-                                        ],
-                                      )),*/ //Gender
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 25.0, right: 25.0, top: 15.0, bottom: 15.0),
@@ -269,10 +211,11 @@ class _SignupPageState extends State<SignupPage> {
 
                                               if (result == null) {
                                                 if (context.mounted) {
-                                                  Navigator.push(
-                                                      context,
+                                                  Navigator.pushAndRemoveUntil(context,
                                                       MaterialPageRoute(
-                                                          builder: (_) => const HomePage()));
+                                                          builder: (_) => const HomePage()
+                                                      ),
+                                                          (Route route) => false);
                                                 }
                                               } else {
                                                 _showAlertDialog(result as String);
@@ -303,7 +246,7 @@ class _SignupPageState extends State<SignupPage> {
                                         child: const Text(
                                           CaccoTxt.loginLabel,
                                           style: TextStyle(
-                                              color: AppColors.heavyShit,
+                                              color: AppColors.heavyBrown,
                                               fontSize: 18.0,
                                               decoration: TextDecoration.underline),
                                         )),

@@ -16,4 +16,6 @@ class CaccoTxt{
   // LoginPage
   static const String loginAppbar = "Login";
   static const String loginButton = "Accedi";
+  // HomeTab
+  static const String noDescription = "Nessuna descrizione";
 }

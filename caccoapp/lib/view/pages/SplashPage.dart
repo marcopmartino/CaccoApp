@@ -1,12 +1,12 @@
-import 'package:CaccoApp/utility/AppColors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../helpers/IconHelper.dart';
-import '../helpers/Utils.dart';
-import '../widgets/IconFont.dart';
+import 'package:CaccoApp/utility/AppColors.dart';
+import 'package:CaccoApp/helpers/IconHelper.dart';
+import 'package:CaccoApp/helpers/Utils.dart';
+import 'package:CaccoApp/widgets/IconFont.dart';
 
 class SplashPage extends StatelessWidget{
   int? duration = 0;
@@ -30,7 +30,7 @@ class SplashPage extends StatelessWidget{
 
     return Material(
       child: Container(
-        color: AppColors.mainShit,
+        color: AppColors.mainBrown,
         alignment: Alignment.center,
         child: Stack(
           children: [

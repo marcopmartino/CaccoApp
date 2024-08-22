@@ -1,0 +1,112 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:houseoftasty/network/ProfileNetwork.dart';
+import 'package:houseoftasty/utility/AppFontWeight.dart';
+import 'package:houseoftasty/utility/StreamBuilders.dart';
+import 'package:houseoftasty/view/page/ProfileEditPage.dart';
+import 'package:houseoftasty/view/widget/CustomEdgeInsets.dart';
+
+import '../../network/UsersNetwork.dart';
+import '../../utility/AppColors.dart';
+import '../../utility/DocumentStreamBuilder.dart';
+import '../../utility/ImageLoader.dart';
+import '../../utility/Navigation.dart';
+import '../../view/widget/CustomScaffold.dart';
+import '../widget/FloatingButtons.dart';
+import '../widget/TextWidgets.dart';
+
+class UserDetailsPage extends StatefulWidget {
+
+  static const String route = 'profileDetails';
+  final String userId;
+  final String username;
+
+  const UserDetailsPage({super.key, required this.userId, required this.username});
+
+  @override
+  State<UserDetailsPage> createState() => _UserDetailsPage();
+}
+
+class _UserDetailsPage extends State<UserDetailsPage> {
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScaffold(
+        title: widget.username,
+        body: DocumentStreamBuilder(
+            stream: UsersNetwork.getUserDetails(widget.userId),
+            builder: (BuildContext builder, DocumentSnapshot<Object?> data) {
+              return SingleChildScrollView(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Immagine
+                        Center(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.asset(
+                              'assets/exemple-poop.png',
+                              height: 150.0,
+                              width: 150.0,
+                            ),
+                          ),
+                        ), //Immagine profilo
+
+                        Container(
+                            width: double.infinity,
+                            height: 30,
+                            alignment: AlignmentDirectional.center,
+                            color: AppColors.caramelBrown,
+                            child: TitleWidget.formButton('Dettagli profilo', fontSize: 15)
+                        ), //Divider 'Dettagli profilo'
+
+
+                        // Sezione Username
+                        Padding(
+                            padding: CustomEdgeInsets.exceptBottom(16), // Spaziatura esterna
+                            child: SubtitleWidget('Username')
+                        ),
+                        Padding(
+                            padding: CustomEdgeInsets.only(left:16, right:16), // Spaziatura esterna
+                            child: TextWidget(data['username'], fontSize: 15, fontWeight: AppFontWeight.medium)
+                        ),
+
+                        // Sezione email
+                        Padding(
+                            padding: CustomEdgeInsets.exceptBottom(16), // Spaziatura esterna
+                            child: SubtitleWidget('Email')
+                        ),
+                        Padding(
+                            padding: CustomEdgeInsets.only(left:16, right:16),  // Spaziatura esterna
+                            child: TextWidget(data['email'], fontSize: 15, fontWeight: AppFontWeight.medium)
+                        ),
+
+                        // Sezione nome
+                        Padding(
+                            padding: CustomEdgeInsets.exceptBottom(16), // Spaziatura esterna
+                            child: SubtitleWidget('Nome')
+                        ),
+                        Padding(
+                            padding: CustomEdgeInsets.only(left:16, right:16),  // Spaziatura esterna
+                            child: TextWidget(data['nome'], fontSize: 15, fontWeight: AppFontWeight.medium)
+                        ),
+
+                        // Sezione cognome
+                        Padding(
+                            padding: CustomEdgeInsets.exceptBottom(16), // Spaziatura esterna
+                            child: SubtitleWidget('Cognome')
+                        ),
+                        Padding(
+                            padding: CustomEdgeInsets.only(left:16, right:16, bottom:16),  // Spaziatura esterna
+                            child: TextWidget(data['cognome'], fontSize: 15, fontWeight: AppFontWeight.medium)
+                        ),
+                      ]
+                  )
+              );
+            }),
+        floatingActionButton: FloatingActionButtons.edit(
+            onPressed: () => Navigation.navigate(context, ProfileEditPage())
+        )
+    );
+  }
+}

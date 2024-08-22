@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="caccoapp"
+        android:label="CaccoApp"
         android:name="${applicationName}"
         android:icon="@mipmap/cacco_launcher">
         <activity
