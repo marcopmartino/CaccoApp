@@ -8,33 +8,33 @@ class CaccoItem extends Item {
   const CaccoItem({super.key, required super.itemData});
 
   String calculateEta(String data){
-      DateTime current = DateTime.now();
-      DateTime temp = DateFormat("yyyy-MM-dd hh:mm:ss").parse(data);
+    DateTime current = DateTime.now();
+    DateTime temp = DateFormat("yyyy-MM-dd hh:mm:ss").parse(data);
 
-      Duration difference = current.difference(temp);
+    Duration difference = current.difference(temp);
 
-      print(difference);
+    print(difference);
 
-      if(difference.inDays>0){
-        if(difference.inDays>6){
-          int week = (difference.inDays/7).round();
-          if(week>4){
-            return "Più di un mese fa";
-          }else{
-            return "$week settimane fa";
-          }
+    if(difference.inDays>0){
+      if(difference.inDays>6){
+        int week = (difference.inDays/7).round();
+        if(week>4){
+          return "PiÃ¹ di un mese fa";
         }else{
-          return "${difference.inDays} giorni fa";
+          return "$week settimane fa";
         }
-      }else if((difference.inHours%24)<24){
-        return "${difference.inHours%24} ore fa";
-      }else if((difference.inMinutes%60)<60){
-        return "${difference.inMinutes%60} minuti fa";
-      }else if((difference.inSeconds%60)<60){
-        return "${difference.inSeconds%60} secondi fa";
       }else{
-        return "Un attimo fa";
+        return "${difference.inDays} giorni fa";
       }
+    }else if((difference.inHours%24)<24){
+      return "${difference.inHours%24} ore fa";
+    }else if((difference.inMinutes%60)<60){
+      return "${difference.inMinutes%60} minuti fa";
+    }else if((difference.inSeconds%60)<60){
+      return "${difference.inSeconds%60} secondi fa";
+    }else{
+      return "Un attimo fa";
+    }
   }
 
   @override
@@ -69,7 +69,7 @@ class CaccoItem extends Item {
                       color: Colors.black,
                       fontWeight: FontWeight.normal,
                     ),
-                    "${itemData['nome']} • ${calculateEta(itemData['data'])}"
+                    "${itemData['nome']} â€¢ ${calculateEta(itemData['data'])}"
                 ),
               )
             ]

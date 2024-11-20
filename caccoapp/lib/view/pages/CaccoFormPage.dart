@@ -1,7 +1,6 @@
 import 'package:CaccoApp/utility/Extensions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:CaccoApp/view/widget/CustomButton.dart';
 import 'package:CaccoApp/view/widget/TextWidgets.dart';
@@ -11,7 +10,6 @@ import 'package:CaccoApp/utility/AppColors.dart';
 import 'package:CaccoApp/utility/Navigation.dart';
 
 import 'package:CaccoApp/network/CaccoNetwork.dart';
-import 'package:flutter/painting.dart';
 import 'package:intl/intl.dart';
 
 import '../../utility/AppFontWeight.dart';
@@ -77,8 +75,8 @@ class _CaccoFormState extends State<CaccoFormPage> {
           title: title,
           body: const Center(
               child: CircularProgressIndicator(
-            color: AppColors.mainBrown,
-          )));
+                color: AppColors.mainBrown,
+              )));
     } else /*if(widget.newCacco)*/ {
       return CustomScaffold(
           title: title,
@@ -199,22 +197,22 @@ class _CaccoFormState extends State<CaccoFormPage> {
                 )
             ), //Tipo di cacco txt
             Flexible(
-              child: SizedBox(
-                height: 150,
-                width: MediaQuery.of(context).size.width,
-                child: ListView.separated(
-                    shrinkWrap: true,
-                    separatorBuilder: (context,index) => const SizedBox(width: 10,),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: caccoTypeName.length,
-                    itemBuilder: (context, index) => Container(
+                child: SizedBox(
+                  height: 150,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView.separated(
+                      shrinkWrap: true,
+                      separatorBuilder: (context,index) => const SizedBox(width: 10,),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: caccoTypeName.length,
+                      itemBuilder: (context, index) => Container(
                         height: 150,
                         width: 150,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage('assets/temp-image.jpg')
-                            ),
+                              fit: BoxFit.cover,
+                              image: AssetImage('assets/temp-image.jpg')
+                          ),
                           shape: BoxShape.circle,
                         ),
                         child: RadioListTile(
@@ -235,8 +233,8 @@ class _CaccoFormState extends State<CaccoFormPage> {
                             });
                           },
                         ),
-                    )),
-              )
+                      )),
+                )
 
             ),//Tipo di cacco listview
             const SizedBox(height: 40),

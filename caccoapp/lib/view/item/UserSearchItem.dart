@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../utility/AppColors.dart';
-import '../../utility/UtilityFunction.dart';
+import '../../helpers/Utils.dart';
 import '../widget/TextWidgets.dart';
 import 'Item.dart';
 
@@ -35,11 +35,11 @@ class UserSearchItem extends Item {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
                 child: IconTextWidget(
-                    text: translateGender(itemData['gender'].toString()),
+                    text: Utils.translateGender(itemData['gender'].toString()),
                     textColor: AppColors.sandBrown,
-                    icon: itemData['gender'].toString() == 'male' ?
-                      Icons.male_rounded : itemData['gender'].toString() == 'female' ?
-                      Icons.female_rounded : Icons.question_mark_rounded,
+                    icon: itemData['gender'].toString() == 'Male' ?
+                    Icons.male_rounded : itemData['gender'].toString() == 'Female' ?
+                    Icons.female_rounded : Icons.question_mark_rounded,
                     iconSize: 30,
                     fontSize: 16,
                     innerPadding: 8

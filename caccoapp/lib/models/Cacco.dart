@@ -52,22 +52,22 @@ class Cacco{
   }
 
   Cacco.fromMap(Map<String, dynamic> caccoMap):
-    id = caccoMap['id'],
-    chef = caccoMap['chef'],
-    name = caccoMap['name'],
-    description = caccoMap['description'],
-    caccoType = caccoMap['caccoType'],
-    caccoQuantity = caccoMap['caccoQuantity'],
-    timeStamp = caccoMap['timeStamp'];
+        id = caccoMap['id'],
+        chef = caccoMap['chef'],
+        name = caccoMap['name'],
+        description = caccoMap['description'],
+        caccoType = caccoMap['caccoType'],
+        caccoQuantity = caccoMap['caccoQuantity'],
+        timeStamp = caccoMap['timeStamp'];
 
   Cacco.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc):
-    id = doc.id,
-    chef = doc.data()!['chef'],
-    name = doc.data()!['name'],
-    description = doc.data()!['description'],
-    caccoType = doc.data()!['caccoType'],
-    caccoQuantity = doc.data()!['caccoQuantity'],
-    timeStamp = doc.data()!['timeStamp'];
+        id = doc.id,
+        chef = doc.data()!['chef'],
+        name = doc.data()!['name'],
+        description = doc.data()!['description'],
+        caccoType = doc.data()!['caccoType'],
+        caccoQuantity = doc.data()!['caccoQuantity'],
+        timeStamp = doc.data()!['timeStamp'];
 
   String? getId(){
     return id;
@@ -77,4 +77,3 @@ class Cacco{
     return timeStamp;
   }
 }
-

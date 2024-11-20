@@ -1,3 +1,4 @@
+import 'package:CaccoApp/view/item/UserSearchItem.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../view/item/CaccoHomeViewItem.dart';
@@ -33,6 +34,8 @@ class ListViewBuilder extends StatelessWidget {
         return CaccoItem(itemData: itemData);
       case ItemType.CACCO_HOME_VIEW:
         return CaccoHomeViewItem(itemData: itemData);
+      case ItemType.USER_SEARCH:
+        return UserSearchItem(itemData: itemData);
       default:
         return Item(itemData: itemData);
     }

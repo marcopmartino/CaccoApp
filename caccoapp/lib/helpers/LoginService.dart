@@ -1,4 +1,5 @@
-import 'package:CaccoApp/network/ProfileNetwork.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -7,10 +8,11 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/LoggedUser.dart';
+import '../network/ProfileNetwork.dart';
 
 class LoginService extends ChangeNotifier{
-  LoggedUser? _userModel;
-  LoggedUser? get loggedInUserModel => _userModel;
+  static LoggedUser _userModel = LoggedUser();
+  static LoggedUser? get loggedInUserModel => _userModel;
 
   GoogleSignIn googleSignIn = GoogleSignIn(
       scopes: [
@@ -23,37 +25,29 @@ class LoginService extends ChangeNotifier{
   Future<bool> signInWithGoogle() async {
 
     // Trigger the authentication flow
-
     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
-    if (googleUser == null){
-      return false;
-    }
-
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
     // Create a new credential
     final GoogleAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
     ) as GoogleAuthCredential;
-
+     
     // Once signed in, return the UserCredential
     UserCredential userCreds = await FirebaseAuth.instance.signInWithCredential(credential);
 
     final gender = await getGender();
-    _userModel = LoggedUser(
-      username: userCreds.user!.displayName,
-      email: userCreds.user!.email,
-      id: userCreds.user!.uid,
-      gender: gender
-    );
+    _userModel = LoggedUser();
     ProfileNetwork.checkIfExist(userCreds.user!, gender);
     notifyListeners();
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('isLoggedIn', true);
+    /*prefs.setString('userId', userCreds.user!.uid);
+    prefs.setString('username', userCreds.user!.displayName!);*/
 
     return true;
   }
@@ -61,9 +55,9 @@ class LoginService extends ChangeNotifier{
   Future<String> getGender() async{
     final headers = await googleSignIn.currentUser!.authHeaders;
     final r = await http.get(Uri.parse("https://people.googleapis.com/v1/people/me?personFields=genders&key="),
-      headers: {
-      "Authorization": headers["Authorization"]!,
-      }
+        headers: {
+          "Authorization": headers["Authorization"]!,
+        }
     );
     final response = json.decode(r.body);
     return response["genders"][0]["formattedValue"];
@@ -71,9 +65,9 @@ class LoginService extends ChangeNotifier{
 
   Future<void> googleSignOut() async{
     await GoogleSignIn().signOut();
-    _userModel = null;
+    _userModel.logOut();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isLoggedIn', false);
+    prefs.clear();
   }
 
   static Future<User?> registerUsingEmailPassword({
@@ -162,7 +156,20 @@ class LoginService extends ChangeNotifier{
     return user;
   }
 
-  bool isUserLoggedIn(){
-    return _userModel != null;
+  static Future<void> getLoggedUserData() async {
+    if(_userModel.getId() != null){
+      _userModel = LoggedUser();
+    }else{
+      await FirebaseFirestore.instance.collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid).get().then((document) => {
+        _userModel = LoggedUser(
+          id: FirebaseAuth.instance.currentUser!.uid,
+          username: document['username'],
+          email: document['email'],
+          gender: document['gender'],
+        )
+      });
+    }
+    return;
   }
 }

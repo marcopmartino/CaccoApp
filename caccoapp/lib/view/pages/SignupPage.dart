@@ -48,10 +48,10 @@ class _SignupPageState extends State<SignupPage> {
             title: Text(error),
             content: SingleChildScrollView(
                 child: ListBody(
-              children: <Widget>[
-                Text(error),
-              ],
-            )),
+                  children: <Widget>[
+                    Text(error),
+                  ],
+                )),
             actions: <Widget>[
               TextButton(
                 child: const Text('Ok'),
@@ -78,12 +78,12 @@ class _SignupPageState extends State<SignupPage> {
                 height: size.height,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                  image: AssetImage(
-                    'assets/exemple-poop.png',
-                  ),
-                  fit: BoxFit.cover,
-                  opacity: 0.3,
-                )),
+                      image: AssetImage(
+                        'assets/exemple-poop.png',
+                      ),
+                      fit: BoxFit.cover,
+                      opacity: 0.3,
+                    )),
                 child: Stack(
                   children: <Widget>[
                     Center(
@@ -117,30 +117,30 @@ class _SignupPageState extends State<SignupPage> {
                                     ),
                                   ), //Username
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: 25.0, right: 25.0, top: 15.0, bottom:15.0),
-                                    child: Column(
-                                      children: <Widget>[
-                                        const Text(
-                                          CaccoTxt.genderLabel,
-                                          style: TextStyle(color: Colors.black, fontSize: 18.0),
-                                        ), //GenderLabel
-                                        const SizedBox(height: 15),
-                                        RadioGroup(
-                                          controller: _genderController,
-                                          values: const ["Altro", "Uomo", "Donna"],
-                                          indexOfDefault: 0,
-                                          orientation: RadioGroupOrientation.horizontal,
-                                          decoration: const RadioGroupDecoration(
-                                              spacing: 10.0,
-                                              labelStyle: TextStyle(
-                                                color: Colors.black,
-                                              ),
-                                              activeColor: AppColors.mainBrown
+                                      padding: const EdgeInsets.only(
+                                          left: 25.0, right: 25.0, top: 15.0, bottom:15.0),
+                                      child: Column(
+                                        children: <Widget>[
+                                          const Text(
+                                            CaccoTxt.genderLabel,
+                                            style: TextStyle(color: Colors.black, fontSize: 18.0),
+                                          ), //GenderLabel
+                                          const SizedBox(height: 15),
+                                          RadioGroup(
+                                            controller: _genderController,
+                                            values: const ["Altro", "Uomo", "Donna"],
+                                            indexOfDefault: 0,
+                                            orientation: RadioGroupOrientation.horizontal,
+                                            decoration: const RadioGroupDecoration(
+                                                spacing: 10.0,
+                                                labelStyle: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                                activeColor: AppColors.mainBrown
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    )
+                                        ],
+                                      )
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
@@ -162,12 +162,12 @@ class _SignupPageState extends State<SignupPage> {
                                         style: const TextStyle(color: Colors.black),
                                         obscureText: true,
                                         decoration:
-                                            CustomDecoration.loginInputDecoration('Password'),
+                                        CustomDecoration.loginInputDecoration('Password'),
                                       )), //Password
                                   Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 25.0, right: 25.0, top: 15, bottom: 40),
-                                      child: TextFormField(
+                                    padding: const EdgeInsets.only(
+                                        left: 25.0, right: 25.0, top: 15, bottom: 40),
+                                    child: TextFormField(
                                         controller: _confirmPasswTextController,
                                         validator: (value) => Validator.validateEqualPassword(
                                             password: _passwTextController.text,
@@ -176,83 +176,84 @@ class _SignupPageState extends State<SignupPage> {
                                         obscureText: true,
                                         decoration: CustomDecoration.loginInputDecoration(
                                             CaccoTxt.confirmPassw)
-                                      ),
+                                    ),
                                   ), //Conferma password
                                 ],
                               )), //Email&Password
                           _isProcessing
                               ? const CircularProgressIndicator()
                               : Column(
-                                  children: [
-                                    CustomElevatedIconButton(
-                                        height: 50,
-                                        width: 150,
-                                        onPressed: () async {
-                                          _focusUsername.unfocus();
-                                          _focusEmail.unfocus();
-                                          _focusPassw.unfocus();
-                                          _focusConfirmPassw.unfocus();
+                            children: [
+                              CustomElevatedIconButton(
+                                  height: 50,
+                                  width: 150,
+                                  onPressed: () async {
+                                    _focusUsername.unfocus();
+                                    _focusEmail.unfocus();
+                                    _focusPassw.unfocus();
+                                    _focusConfirmPassw.unfocus();
 
-                                          if (_formKey.currentState!.validate()) {
-                                            setState(() {
-                                              _isProcessing = true;
-                                            });
+                                    if (_formKey.currentState!.validate()) {
+                                      setState(() {
+                                        _isProcessing = true;
+                                      });
 
-                                            Object? user =
-                                                await LoginService.signUpUsingEmailPassword(
-                                                    email: _emailTextController.text,
-                                                    password: _passwTextController.text);
+                                      Object? user =
+                                      await LoginService.signUpUsingEmailPassword(
+                                          email: _emailTextController.text,
+                                          password: _passwTextController.text);
 
-                                            if (user != null && user is User) {
-                                              Object? result = await ProfileNetwork.addUser(
-                                                  username: _usernameController.text,
-                                                  email: _emailTextController.text,
-                                                  gender: _genders.name);
+                                      if (user != null && user is User) {
+                                        Object? result = await ProfileNetwork.addUser(
+                                            id: user.uid,
+                                            username: _usernameController.text,
+                                            email: _emailTextController.text,
+                                            gender: _genders.name);
 
-                                              if (result == null) {
-                                                if (context.mounted) {
-                                                  Navigator.pushAndRemoveUntil(context,
-                                                      MaterialPageRoute(
-                                                          builder: (_) => const HomePage()
-                                                      ),
-                                                          (Route route) => false);
-                                                }
-                                              } else {
-                                                _showAlertDialog(result as String);
-                                              }
-                                            } else {
-                                              _showAlertDialog(user as String);
-                                            }
-
-                                            setState(() {
-                                              _isProcessing = false;
-                                            });
+                                        if (result == null) {
+                                          if (context.mounted) {
+                                            Navigator.pushAndRemoveUntil(context,
+                                                MaterialPageRoute(
+                                                    builder: (_) => const HomePage()
+                                                ),
+                                                    (Route route) => false);
                                           }
-                                        },
-                                        icon: const Icon(Icons.app_registration),
-                                        label: const Text(
-                                          CaccoTxt.signupButton,
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        borderRadius: BorderRadius.circular(25.0)),
-                                    const SizedBox(height: 25),
-                                    InkWell(
-                                        onTap: () {
-                                          Navigation.navigate(context, const LoginPage());
-                                        },
-                                        child: const Text(
-                                          CaccoTxt.loginLabel,
-                                          style: TextStyle(
-                                              color: AppColors.heavyBrown,
-                                              fontSize: 18.0,
-                                              decoration: TextDecoration.underline),
-                                        )),
-                                    const SizedBox(height: 25)//Signup email button
-                                  ],
-                                )
+                                        } else {
+                                          _showAlertDialog(result as String);
+                                        }
+                                      } else {
+                                        _showAlertDialog(user as String);
+                                      }
+
+                                      setState(() {
+                                        _isProcessing = false;
+                                      });
+                                    }
+                                  },
+                                  icon: const Icon(Icons.app_registration),
+                                  label: const Text(
+                                    CaccoTxt.signupButton,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  borderRadius: BorderRadius.circular(25.0)),
+                              const SizedBox(height: 25),
+                              InkWell(
+                                  onTap: () {
+                                    Navigation.navigate(context, const LoginPage());
+                                  },
+                                  child: const Text(
+                                    CaccoTxt.loginLabel,
+                                    style: TextStyle(
+                                        color: AppColors.heavyBrown,
+                                        fontSize: 18.0,
+                                        decoration: TextDecoration.underline),
+                                  )),
+                              const SizedBox(height: 25)//Signup email button
+                            ],
+                          )
                         ],
                       ),
                     )

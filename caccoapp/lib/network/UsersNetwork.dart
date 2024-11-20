@@ -11,7 +11,7 @@ class UsersNetwork{
         _usersReference.snapshots());
   }
 
-  static Stream<DocumentSnapshot<Object?>> getUserDetails(String userId) {
-    return _usersReference.doc(userId).snapshots();
+  static Future<DocumentSnapshot<Object?>> getUserDetails(String userId) {
+    return _usersReference.doc(userId).get();
   }
 }

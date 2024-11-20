@@ -1,4 +1,3 @@
-import 'package:CaccoApp/models/LoggedUser.dart';
 import 'package:CaccoApp/utility/Extensions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +6,6 @@ import 'package:intl/intl.dart';
 
 import '../../network/ProfileNetwork.dart';
 import '../../utility/AppColors.dart';
-import '../../utility/CaccoTxt.dart';
 import '../../utility/DocumentStreamBuilder.dart';
 import '../widget/TextWidgets.dart';
 import 'Item.dart';
@@ -42,13 +40,14 @@ class CaccoHomeViewItem extends Item {
                     padding: const EdgeInsets.fromLTRB(16, 8, 16, 0), // Spaziatura esterna
                     child: TitleWidget(
                         itemData['name'].toString() != '' ?
-                          itemData['name'].toString() : "Cacco del $date",
+                        itemData['name'].toString() : "Cacco del $date",
                         fontSize: 18, textColor: AppColors.sandBrown)
                 ), //Name
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 8), // Spaziatura esterna
                   child: TextWidget(
                     itemSubtitle,
+                    fontSize: 14,
                     textColor: AppColors.sandBrown,
                   ),
                 ),
@@ -65,23 +64,22 @@ class CaccoHomeViewItem extends Item {
                               text: itemData['caccoType'].toString(),
                               textColor: AppColors.sandBrown,
                               icon: Icons.type_specimen_rounded,
-                              iconSize: 30,
-                              fontSize: 16,
+                              iconSize: 25,
+                              fontSize: 12,
                               innerPadding: 8
                           ),
                         ), //CaccoType
                         SizedBox(
                           width: MediaQuery.of(context).size.width /3,
-                          child:
-                          // Like
-                          IconTextWidget(
+                          child: IconTextWidget(
                               text: itemData['caccoQuantity'].toString(),
                               textColor: AppColors.sandBrown,
                               icon: Icons.waves_rounded,
-                              iconSize: 30,
-                              fontSize: 16,
+                              iconSize: 25,
+                              fontSize: 12,
                               innerPadding: 8
                           ),
+
                         ), //CaccoQuantity
                       ]
                   ),

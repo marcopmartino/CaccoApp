@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 
 class Validator {
 
@@ -91,8 +90,7 @@ class Validator {
 
   static String? validateEqualPassword({required String? password, required String? chkPassword}){
     print("${password!}   ${chkPassword!}");
-    if (password == null || chkPassword == null ||
-        password.isEmpty && chkPassword.isEmpty) {
+    if (password.isEmpty && chkPassword.isEmpty) {
       return null;
     }
 
@@ -101,7 +99,7 @@ class Validator {
     } else if (password.length < 8) {
       return 'Inserire una password con una lunghezza di almeno 8 caratteri!';
     } else if (chkPassword.isEmpty){
-      return 'Il campo "Conferma Password" non puà essere vuoto!';
+      return 'Il campo "Conferma Password" non può essere vuoto!';
     } else if (chkPassword != password){
       return 'Le password inserite non coincidono!';
     }
@@ -129,7 +127,7 @@ class Validator {
     if (value.isEmpty){
       return 'Questo campo non può essere vuoto';
     } else if (value.length > 20) {
-      return 'Il nome non può essere più lungo di 20 caratteri';
+      return 'Il nome non puÃ² essere più lungo di 20 caratteri';
     }
 
     return null;

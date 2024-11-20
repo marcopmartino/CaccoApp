@@ -27,6 +27,7 @@ class ProfileNetwork{
     var document = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
     if(!document.exists){
       await addUser(
+          id: user.uid,
           username: user.displayName!,
           email: user.email!,
           gender: gender
@@ -35,19 +36,27 @@ class ProfileNetwork{
   }
 
   static Future<Object?> addUser({
+    required String id,
     required String username,
     required String email,
     required String gender}) async {
 
     final LoggedUser user = LoggedUser(
-        username: username,
-        email: email,
-        gender: gender
+      id: id,
+      username: username,
+      email: email,
+      gender: gender,
     );
 
     _user.set(user.toMap()).catchError((e){
       return e;
     });
+
+    await FirebaseFirestore.instance.collection('caccos').doc(id)
+        .set({'currentMonthPoops': 0, 'lastMonthPoops': 0});
+
+    await FirebaseFirestore.instance.collection('follow').doc(id)
+        .set({'following': 0, 'follower': 0});
 
     return null;
   }
@@ -68,12 +77,6 @@ class ProfileNetwork{
 
   static void updateProfile(LoggedUser user){
     _user.update(user.toMap());
-  }
-
-  static void addCacco(){
-    _user.update({
-      'currentMonth': FieldValue.increment(1)
-    });
   }
 
 }

@@ -84,7 +84,7 @@ class IconTextWidget extends StatelessWidget {
   final double innerPadding;
   final Function()? onIconTap;
 
-  const IconTextWidget({
+  const IconTextWidget({super.key, 
     required this.text,
     this.fontSize = 18,
     this.textColor = Colors.black,
@@ -128,8 +128,7 @@ class TextFormFieldWidget extends StatelessWidget {
   late final List<TextInputFormatter>? inputFormatters;
 
 
-  TextFormFieldWidget({
-    super.key,
+  TextFormFieldWidget({super.key,
     required this.controller,
     this.validator,
     this.label = '',
@@ -142,8 +141,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.decoration
   });
 
-  TextFormFieldWidget.numeric({
-    super.key,
+  TextFormFieldWidget.numeric({super.key, 
     required this.controller,
     this.validator,
     this.label = '',
@@ -158,7 +156,7 @@ class TextFormFieldWidget extends StatelessWidget {
     inputFormatters = <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly];
   }
 
-  TextFormFieldWidget.multiline({
+  TextFormFieldWidget.multiline({super.key, 
     required this.controller,
     this.validator,
     this.label = '',
@@ -173,7 +171,7 @@ class TextFormFieldWidget extends StatelessWidget {
     keyboardType = TextInputType.multiline;
   }
 
-  TextFormFieldWidget.psw({
+  TextFormFieldWidget.psw({super.key,
     required this.controller,
     this.validator,
     this.label = '',

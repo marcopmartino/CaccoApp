@@ -7,7 +7,7 @@ class CaccoTxt{
   // SignupPage
   static const String signupAppbar = "Registrati";
   static const String genderLabel = "Sesso";
-  static const String maleTxt = "Uomo";                                                                   
+  static const String maleTxt = "Uomo";
   static const String femaleTxt = "Donna";
   static const String otherTxt = "Altro";
   static const String confirmPassw = "Conferma password";
