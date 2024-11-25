@@ -92,7 +92,7 @@ flutter:
   fonts:
     - family: Metamasie
       fonts:
-        - asset: fonts/metamasie/Metamasie-Regular.ttf
+        - asset: fonts/matemasie/Matemasie-Regular.ttf
     - family: Roboto
       fonts:
         - asset: fonts/roboto/Roboto-Black.ttf

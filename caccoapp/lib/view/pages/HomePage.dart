@@ -27,10 +27,7 @@ class _HomePageState extends State<HomePage>{
   static const List<Widget> _widgetOptions = <Widget>[
     HomeTab(),
     SearchUsersTab(),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    //GroupsTab(),
   ];
 
   void _onItemTapped(int index){

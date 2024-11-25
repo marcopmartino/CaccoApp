@@ -20,14 +20,14 @@ class _SearchBarState extends State<SearchBar>{
   Widget build(BuildContext context){
     return Container(
       padding: const EdgeInsets.all(16),
-        child: const TextField(
-          decoration: InputDecoration(
-              hintText: "Cerca",
-              hintStyle: TextStyle(color: Colors.white),
-              fillColor: Colors.white,
-              prefixIcon: Icon(Icons.search_rounded, color: Colors.white,)
-          ),
+      child: const TextField(
+        decoration: InputDecoration(
+            hintText: "Cerca",
+            hintStyle: TextStyle(color: Colors.white),
+            fillColor: Colors.white,
+            prefixIcon: Icon(Icons.search_rounded, color: Colors.white,)
         ),
+      ),
     );
   }
 }

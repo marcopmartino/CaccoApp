@@ -265,7 +265,7 @@ class _UserDetailsPage extends State<UserDetailsPage> {
                                                             });
                                                             floatingSnackBar(
                                                                 message:
-                                                                    "Non segui piÃ¹ ${widget.username}",
+                                                                    "Non segui più ${widget.username}",
                                                                 backgroundColor:
                                                                     Colors.red,
                                                                 textStyle:

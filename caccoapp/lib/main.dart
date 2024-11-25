@@ -44,7 +44,7 @@ Future<void> main() async{
                 //'/': (context) => SplashPage(duration: 3, goToPage: '/homepage'),
                 '/homepage': (context) => const HomePage(),
                 '/welcomepage': (context) => const WelcomePage(),
-                '/searchuserspage': (context) => const SearchUsersTab(),
+                '/searchuserspage': (context) => const SearchBar(),
                 '/loginpage': (context) => const LoginPage(),
                 '/signuppage': (context) => const SignupPage(),
               }
