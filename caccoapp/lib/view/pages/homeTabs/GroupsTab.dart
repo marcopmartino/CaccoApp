@@ -1,31 +1,55 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class SearchBar extends StatefulWidget{
-  const SearchBar({super.key});
+import '../../../network/GroupsNetwork.dart';
+import '../../../utility/DocumentStreamBuilder.dart';
+import '../../../utility/Navigation.dart';
+import '../../item/Item.dart';
+
+class GroupsTab extends StatefulWidget{
+  const GroupsTab({super.key});
 
   @override
-  State<SearchBar> createState() => _SearchBarState();
+  State<GroupsTab> createState() => _GroupsTabState();
 }
 
-class _SearchBarState extends State<SearchBar>{
-  String query = "";
-
-  void onQueryChanged(String newQuery){
-    setState(() {
-      query = newQuery;
-    });
-  }
+class _GroupsTabState extends State<GroupsTab>{
+  bool _noGroup = false;
 
   @override
   Widget build(BuildContext context){
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: const TextField(
-        decoration: InputDecoration(
-            hintText: "Cerca",
-            hintStyle: TextStyle(color: Colors.white),
-            fillColor: Colors.white,
-            prefixIcon: Icon(Icons.search_rounded, color: Colors.white,)
+    return Scaffold(
+      backgroundColor: Colors.black54,
+      body: Container(
+        padding: const EdgeInsets.all(16),
+        child: _noGroup?
+        ListViewStreamBuilder(
+            stream: GroupsNetwork.getGroupsList(),
+            itemType: ItemType.GROUP,
+            scale: 1.5,
+            expanded: true,
+            onTap: (QueryDocumentSnapshot<Object?> user) {
+              //Navigation.navigate(context, UserDetailsPage(userId: user.id, username: user['username']));
+            },
+            filterFunction: (List<QueryDocumentSnapshot<Object?>> data) {
+              List<QueryDocumentSnapshot<Object?>> filteredData = List.empty(growable: true);
+              for (QueryDocumentSnapshot<Object?> group in data) {
+                if (group['members'].contains(FirebaseAuth.instance.currentUser!.uid)) {
+                  filteredData.add(group);
+                }
+              }
+              _noGroup = filteredData.isEmpty;
+              return filteredData;
+            }
+        ):
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: Image.asset(
+            'assets/exemple-poop.png',
+            height: 150.0,
+            width: 150.0,
+          ),
         ),
       ),
     );

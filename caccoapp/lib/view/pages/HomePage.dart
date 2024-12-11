@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../helpers/Utils.dart';
 import './homeTabs/HomeTab.dart';
 import 'homeTabs/SearchUsersTab.dart';
+import 'homeTabs/GroupsTab.dart';
 
 class HomePage extends StatefulWidget{
   const HomePage({super.key});
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage>{
   static const List<Widget> _widgetOptions = <Widget>[
     HomeTab(),
     SearchUsersTab(),
-    //GroupsTab(),
+    GroupsTab(),
   ];
 
   void _onItemTapped(int index){

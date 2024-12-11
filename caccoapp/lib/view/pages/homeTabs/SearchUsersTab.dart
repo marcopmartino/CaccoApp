@@ -62,7 +62,15 @@ class _SearchUsersTabState extends State<SearchUsersTab>{
                     }
                     return filteredData;
                   }
-              ) : Container(),
+              ) :
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.asset(
+                    'assets/exemple-poop.png',
+                    height: 150.0,
+                    width: 150.0,
+                ),
+              ),
 
             ]
         )

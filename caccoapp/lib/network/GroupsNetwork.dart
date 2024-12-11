@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../utility/Extensions.dart';
+
 class GroupsNetwork{
   static final CollectionReference _groups = FirebaseFirestore.instance.collection('groups');
 
@@ -36,5 +38,10 @@ class GroupsNetwork{
     doc.set({'memberCounter': 0});
     increaseGroupMemberCounter(doc.id);
     return doc.id;
+  }
+
+  static Stream<QuerySnapshot<Object?>> getGroupsList() {
+    return DeviceInfo.getQueryStream((userOrDeviceId) =>
+        _groups.snapshots());
   }
 }

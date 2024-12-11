@@ -40,6 +40,8 @@ class _CaccoFormState extends State<CaccoFormPage> {
   final _descriptionTextController = TextEditingController();
   var _caccoType = "";
   var _caccoQuantity = "";
+  int selectedPoop = 0;
+  int amountPoop = 0;
 
   bool _isProcessing = false;
 
@@ -99,64 +101,7 @@ class _CaccoFormState extends State<CaccoFormPage> {
               ),
             ),
           ));
-    } /* else if (_initializationCompleted) {
-      return CustomScaffold(
-          title: title,
-          body: SizedBox(
-            height: size.height-80,
-            width: size.width,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Flexible(
-                  fit: FlexFit.loose,
-                  child: formBody(),
-                ),
-                editButton(context),
-                deleteButton(context)
-              ],
-            ),
-          )
-      );
-    }else {
-      return CustomScaffold(
-          title: title,
-          body: DocumentStreamBuilder(
-            stream: CaccoNetwork.getCaccoById(widget.caccoId!),
-            builder: (BuildContext builder, DocumentSnapshot<Object?> data){
-              _nameTextController.text = data['nome'];
-              _descriptionTextController.text = data['description'];
-              _caccoTypeTextController.text = data['caccoType'];
-              print(_misuraTextController.text);
-              _dateTextController.text = data['scadenza'];
-              if(_dateTextController.text != '--/--/----') _noExpire = false;
-              _initializationCompleted = true;
-
-              _oldData = data;
-
-              return SingleChildScrollView(
-                  child: SizedBox(
-                      height: size.height-80,
-                      width: size.width,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Flexible(
-                            fit: FlexFit.loose,
-                            child: formBody(),
-                          ),
-                          editButton(context),
-                          deleteButton(context),
-                        ],
-                      )
-                  )
-              );
-            },
-          )
-      );
-    }*/
+    }
   }
 
   Widget formBody() {
@@ -166,6 +111,7 @@ class _CaccoFormState extends State<CaccoFormPage> {
         key: _formKey,
         child: Column(
           children: [
+            const SizedBox(height: 10),
             Flexible(
               flex: 0,
               child: Padding(
@@ -200,42 +146,20 @@ class _CaccoFormState extends State<CaccoFormPage> {
                 child: SizedBox(
                   height: 150,
                   width: MediaQuery.of(context).size.width,
-                  child: ListView.separated(
-                      shrinkWrap: true,
-                      separatorBuilder: (context,index) => const SizedBox(width: 10,),
+                  child: ListView(
                       scrollDirection: Axis.horizontal,
-                      itemCount: caccoTypeName.length,
-                      itemBuilder: (context, index) => Container(
-                        height: 150,
-                        width: 150,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage('assets/temp-image.jpg')
-                          ),
-                          shape: BoxShape.circle,
-                        ),
-                        child: RadioListTile(
-                          contentPadding: const EdgeInsets.only(left:5, right: 5, top: 0, bottom: 10),
-                          title: Text(caccoTypeName[index]),
-                          value: caccoTypeName[index],
-                          groupValue: _caccoType,
-                          enableFeedback: false,
-                          onChanged: (value) {
-                            setState(() {
-                              _caccoType = value.toString();
-                              if(value.toString() == "Falso allarme"){
-                                necessary = false;
-                                _caccoQuantity = "";
-                              }else{
-                                necessary = true;
-                              }
-                            });
-                          },
-                        ),
-                      )),
+                      children: <Widget>[
+                          poopTypeCardButton('assets/fartPoop.png', 0),
+                          poopTypeCardButton('assets/popsPoop.png', 1),
+                          poopTypeCardButton('assets/milkFlakesPoop.png', 2),
+                          poopTypeCardButton('assets/sausagePoop.png', 3), // <--
+                          poopTypeCardButton('assets/snakePoop.png', 4),
+                          poopTypeCardButton('assets/blobPoop.png', 5),
+                          poopTypeCardButton('assets/snowFlakesPoop.png', 6),
+                          poopTypeCardButton('assets/liquidPoop.png', 7),
+                      ]
+                    )
                 )
-
             ),//Tipo di cacco listview
             const SizedBox(height: 40),
             const Flexible(
@@ -252,39 +176,75 @@ class _CaccoFormState extends State<CaccoFormPage> {
                 child: SizedBox(
                   height: 150,
                   width: MediaQuery.of(context).size.width,
-                  child: ListView.separated(
-                      shrinkWrap: true,
-                      separatorBuilder: (context,index) => const SizedBox(width: 10,),
+                  child: ListView(
                       scrollDirection: Axis.horizontal,
-                      itemCount: caccoQuantityName.length,
-                      itemBuilder: (context, index) => Container(
-                        height: 150,
-                        width: 150,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage('assets/temp-image.jpg')
-                          ),
-                          shape: BoxShape.circle,
-                        ),
-                        child: RadioListTile(
-                          contentPadding: const EdgeInsets.only(left:5, right: 5, top: 0, bottom: 10),
-                          title: Text(caccoQuantityName[index]),
-                          value: caccoQuantityName[index],
-                          groupValue: _caccoQuantity,
-                          onChanged: (value) {
-                            setState(() {
-                              _caccoQuantity = value.toString();
-                            });
-                          },
-                          toggleable: necessary,
-                        ),
-                      )),
+                      children: <Widget>[
+                          poopAmountCardButton('assets/childAmount.png', 0),
+                          poopAmountCardButton('assets/lowAmount.png', 1),
+                          poopAmountCardButton('assets/normalAmount.png', 2),
+                          poopAmountCardButton('assets/highAmount.png', 3),
+                          poopAmountCardButton('assets/tooMuchAmount.png', 4),
+                      ],
+                  ),
                 )
 
             ),//Quantità cacco listview
           ],
         ));
+  }
+
+  // Card per i tipi di cacco
+  Widget poopTypeCardButton(String poopName, int index){
+      return OutlinedButton(
+          onPressed: (){
+              setState(() {
+                selectedPoop = index;
+              });
+          },
+          style: OutlinedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+              shape: const CircleBorder(eccentricity: 0),
+              side: BorderSide(
+                  width: (selectedPoop == index) ? 2.0 : 0.5,
+                  color: (selectedPoop == index) ? AppColors.sandBrown : AppColors.caramelBrown,
+              )
+          ),
+          child: Center(
+              child: Image.asset(
+                  poopName,
+                  fit: BoxFit.contain,
+                  width: 120,
+                  height: 120,
+              )
+          ),
+      );
+  }
+
+  // Card per la quantita' di cacco
+  Widget poopAmountCardButton(String poopAmount, int index){
+      return OutlinedButton(
+          onPressed: (){
+              setState(() {
+                  amountPoop = index;
+              });
+          },
+          style: OutlinedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+              shape: const CircleBorder(eccentricity: 0),
+              side: BorderSide(
+                  width: (amountPoop == index) ? 2.0 : 0.5,
+                  color: (amountPoop == index) ? AppColors.sandBrown : AppColors.caramelBrown,
+              )
+          ),
+          child: Center(
+              child: Image.asset(
+                  poopAmount,
+                  fit: BoxFit.contain,
+                  width: 120,
+                  height: 120,
+              )
+          ),
+      );
   }
 
   // Button per creare un nuovo prodotto
