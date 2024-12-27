@@ -38,8 +38,6 @@ class _CaccoFormState extends State<CaccoFormPage> {
 
   final _nameTextController = TextEditingController();
   final _descriptionTextController = TextEditingController();
-  var _caccoType = "";
-  var _caccoQuantity = "";
   int selectedPoop = 0;
   int amountPoop = 0;
 
@@ -84,6 +82,8 @@ class _CaccoFormState extends State<CaccoFormPage> {
           title: title,
           withAppbar: true,
           body: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
             child: SizedBox(
               height: size.height,
               width: size.width,
@@ -115,7 +115,7 @@ class _CaccoFormState extends State<CaccoFormPage> {
             Flexible(
               flex: 0,
               child: Padding(
-                padding: const EdgeInsets.only(left: 25, right: 25, top: 40, bottom: 40),
+                padding: const EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 20),
                 child: TextFormFieldWidget(
                     controller: _nameTextController,
                     label: 'Nome',
@@ -125,13 +125,13 @@ class _CaccoFormState extends State<CaccoFormPage> {
             Flexible(
               flex: 0,
               child: Padding(
-                  padding: const EdgeInsets.only(left: 25, right: 25, top: 15, bottom: 0),
+                  padding: const EdgeInsets.only(left: 25, right: 25, top: 0, bottom: 0),
                   child: TextFormFieldWidget(
                       controller: _descriptionTextController,
                       label: 'Descrizione',
                       hint: 'Inserire descrizione opzionale')),
             ), //Descrizione
-            const SizedBox(height: 40),
+            const SizedBox(height: 10),
             const Flexible(
                 flex: 0,
                 child: Text(
@@ -143,25 +143,35 @@ class _CaccoFormState extends State<CaccoFormPage> {
                 )
             ), //Tipo di cacco txt
             Flexible(
+                flex: 1,
                 child: SizedBox(
-                  height: 150,
+                  height: 210,
                   width: MediaQuery.of(context).size.width,
                   child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
-                          poopTypeCardButton('assets/fartPoop.png', 0),
-                          poopTypeCardButton('assets/popsPoop.png', 1),
-                          poopTypeCardButton('assets/milkFlakesPoop.png', 2),
-                          poopTypeCardButton('assets/sausagePoop.png', 3), // <--
-                          poopTypeCardButton('assets/snakePoop.png', 4),
-                          poopTypeCardButton('assets/blobPoop.png', 5),
-                          poopTypeCardButton('assets/snowFlakesPoop.png', 6),
-                          poopTypeCardButton('assets/liquidPoop.png', 7),
+                          const SizedBox(width: 10,),
+                          poopTypeCardButton('assets/fartPoop.png', "Fart", 0),
+                          const SizedBox(width: 10,),
+                          poopTypeCardButton('assets/popsPoop.png', "Pops", 1),
+                          const SizedBox(width: 10,),
+                          poopTypeCardButton('assets/milkFlakesPoop.png', "Milk flakes", 2),
+                          const SizedBox(width: 10,),
+                          poopTypeCardButton('assets/sausagePoop.png', "Sausage", 3),
+                          const SizedBox(width: 10,),
+                          poopTypeCardButton('assets/snakePoop.png', "Snake", 4),
+                          const SizedBox(width: 10,),
+                          poopTypeCardButton('assets/blobPoop.png', "Blob", 5),
+                          const SizedBox(width: 10,),
+                          poopTypeCardButton('assets/snowFlakesPoop.png', "Snow flakes", 6),
+                          const SizedBox(width: 10,),
+                          poopTypeCardButton('assets/liquidPoop.png', "Liquid", 7),
+                          const SizedBox(width: 10,),
                       ]
                     )
                 )
             ),//Tipo di cacco listview
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
             const Flexible(
                 flex: 0,
                 child: Text(
@@ -173,77 +183,121 @@ class _CaccoFormState extends State<CaccoFormPage> {
                 )
             ), //Quantità cacco txt
             Flexible(
+                flex: 1,
                 child: SizedBox(
-                  height: 150,
+                  height: 250,
                   width: MediaQuery.of(context).size.width,
                   child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
+                          const SizedBox(width: 10,),
                           poopAmountCardButton('assets/childAmount.png', 0),
+                          const SizedBox(width: 10,),
                           poopAmountCardButton('assets/lowAmount.png', 1),
+                          const SizedBox(width: 10,),
                           poopAmountCardButton('assets/normalAmount.png', 2),
+                          const SizedBox(width: 10,),
                           poopAmountCardButton('assets/highAmount.png', 3),
+                          const SizedBox(width: 10,),
                           poopAmountCardButton('assets/tooMuchAmount.png', 4),
+                          const SizedBox(width: 10,),
                       ],
                   ),
                 )
-
             ),//Quantità cacco listview
           ],
         ));
   }
 
   // Card per i tipi di cacco
-  Widget poopTypeCardButton(String poopName, int index){
-      return OutlinedButton(
-          onPressed: (){
-              setState(() {
-                selectedPoop = index;
-              });
-          },
-          style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-              shape: const CircleBorder(eccentricity: 0),
-              side: BorderSide(
-                  width: (selectedPoop == index) ? 2.0 : 0.5,
-                  color: (selectedPoop == index) ? AppColors.sandBrown : AppColors.caramelBrown,
+  Widget poopTypeCardButton(String fileName, String poopName, int index){
+      return Column(
+          children: [
+              Expanded(
+                  child: OutlinedButton(
+                      onPressed: (){
+                          setState(() {
+                              selectedPoop = index;
+                          });
+                      },
+                      style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                          shape: const CircleBorder(eccentricity: 0),
+                          side: BorderSide(
+                              width: (selectedPoop == index) ? 2.0 : 0.5,
+                              color: (selectedPoop == index) ? AppColors.sandBrown : AppColors.caramelBrown,
+                          )
+                      ),
+                      child: Center(
+                          child: ClipOval(
+                              child: Image.asset(
+                                  fileName,
+                                  fit: BoxFit.cover,
+                                  width: 100,
+                                  height: 100,
+                              ),
+                          )
+                      ),
+                  )
+              ),
+
+              Text(
+                  caccoTypeName[index],
+                  style: const TextStyle(
+                      height:  2,
+                      fontSize: 14,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Matemasie'
+                  )
               )
-          ),
-          child: Center(
-              child: Image.asset(
-                  poopName,
-                  fit: BoxFit.contain,
-                  width: 120,
-                  height: 120,
-              )
-          ),
+          ],
       );
   }
 
   // Card per la quantita' di cacco
-  Widget poopAmountCardButton(String poopAmount, int index){
-      return OutlinedButton(
-          onPressed: (){
-              setState(() {
-                  amountPoop = index;
-              });
-          },
-          style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-              shape: const CircleBorder(eccentricity: 0),
-              side: BorderSide(
-                  width: (amountPoop == index) ? 2.0 : 0.5,
-                  color: (amountPoop == index) ? AppColors.sandBrown : AppColors.caramelBrown,
+  Widget poopAmountCardButton(String fileName, int index){
+      return Column(
+          children: [
+              Expanded(
+                  child: OutlinedButton(
+                      onPressed: (){
+                          setState(() {
+                              amountPoop = index;
+                          });
+                      },
+                      style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                          shape: const CircleBorder(eccentricity: 0),
+                          side: BorderSide(
+                              width: (amountPoop == index) ? 2.0 : 0.5,
+                              color: (amountPoop == index) ? AppColors.sandBrown : AppColors.caramelBrown,
+                          )
+                      ),
+                      child: Center(
+                          child: ClipOval(
+                              child: Image.asset(
+                                  fileName,
+                                  fit: BoxFit.fill,
+                                  width: 100,
+                                  height: 100,
+                              ),
+                          )
+                      ),
+                  )
+              ),
+
+              Text(
+                  caccoTypeName[index],
+                  style: const TextStyle(
+                      height:  2,
+                      fontSize: 14,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Matemasie'
+                  )
               )
-          ),
-          child: Center(
-              child: Image.asset(
-                  poopAmount,
-                  fit: BoxFit.contain,
-                  width: 120,
-                  height: 120,
-              )
-          ),
+          ],
       );
   }
 
@@ -270,8 +324,8 @@ class _CaccoFormState extends State<CaccoFormPage> {
                 chef: FirebaseAuth.instance.currentUserId!,
                 name: _nameTextController.text,
                 description: _descriptionTextController.text,
-                caccoType: _caccoType,
-                caccoQuantity: _caccoQuantity,
+                caccoType: caccoTypeName[selectedPoop],
+                caccoQuantity: caccoQuantityName[amountPoop],
                 timeStamp: formattedDate,
               ).toMap());
 
@@ -305,4 +359,5 @@ class _CaccoFormState extends State<CaccoFormPage> {
           },
         ));
   }
+
 }
