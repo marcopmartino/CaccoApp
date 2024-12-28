@@ -13,25 +13,24 @@ import '../../../utility/ListViewBuilders.dart';
 import '../../../utility/Navigation.dart';
 import '../../widget/CustomButton.dart';
 
-class HomeTab extends StatefulWidget{
+class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
 
   @override
   State<HomeTab> createState() => _HomeTabState();
 }
 
-class _HomeTabState extends State<HomeTab>{
-
+class _HomeTabState extends State<HomeTab> {
   var user = LoginService.loggedInUserModel!;
-  var scrollable = false;
+  var scrollable = true;
   var thereIsListView = false;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
-        if(thereIsListView){
+        if (thereIsListView) {
           setState(() {
             scrollable = true;
           });
@@ -41,7 +40,7 @@ class _HomeTabState extends State<HomeTab>{
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black54,
         body: Padding(
@@ -50,7 +49,7 @@ class _HomeTabState extends State<HomeTab>{
               children: <Widget>[
                 DocumentStreamBuilder(
                     stream: CaccoNetwork.getCaccosInfo(null),
-                    builder: (BuildContext context, DocumentSnapshot<Object?> data){
+                    builder: (BuildContext context, DocumentSnapshot<Object?> data) {
                       return Card(
                           margin: const EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
                           clipBehavior: Clip.antiAlias,
@@ -60,155 +59,128 @@ class _HomeTabState extends State<HomeTab>{
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Column(
+                            child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                              const Padding(
+                                  padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
+                                  child: Text(
+                                    "RIEPILOGO CACCO",
+                                    style: TextStyle(
+                                      fontFamily: "Roboto",
+                                      fontSize: 35.0,
+                                      color: Colors.black45,
+                                    ),
+                                  )),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  const Padding(
-                                      padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
-                                      child: Text(
-                                        "RIEPILOGO CACCO",
-                                        style: TextStyle(
-                                          fontFamily: "Roboto",
-                                          fontSize: 35.0,
-                                          color: Colors.black45,
-                                        ),
-                                      )
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: Container(
-                                          height: 70,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white60,
-                                            borderRadius: BorderRadius.circular(15.0),
-                                          ),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              const Text(
-                                                "Mese corrente",
-                                                style: TextStyle(
-                                                    fontSize: 20.0,
-                                                    color: Colors.black
-                                                ),
-                                              ),
-                                              Text(
-                                                data['currentMonthPoops'].toString(),
-                                                style: const TextStyle(
-                                                    fontSize: 30.0,
-                                                    color: AppColors.problemBrown
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      height: 70,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white60,
+                                        borderRadius: BorderRadius.circular(15.0),
                                       ),
-                                      const SizedBox(width: 15),
-                                      Expanded(
-                                          flex: 1,
-                                          child: Container(
-                                            width: MediaQuery.of(context).size.width/2,
-                                            height: 70,
-                                            decoration: BoxDecoration(
-                                                color: Colors.white60,
-                                                borderRadius: BorderRadius.circular(15.0)
-                                            ),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                const Text(
-                                                  "Mese scorso",
-                                                  style: TextStyle(
-                                                      fontSize: 20.0,
-                                                      color: Colors.black
-                                                  ),
-                                                ),
-                                                Text(
-                                                  data['lastMonthPoops'].toString(),
-                                                  style: const TextStyle(
-                                                      fontSize: 30.0,
-                                                      color: AppColors.problemBrown
-                                                  ),
-                                                )
-
-                                              ],
-                                            ),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            "Mese corrente",
+                                            style: TextStyle(fontSize: 20.0, color: Colors.black),
+                                          ),
+                                          Text(
+                                            data['currentMonthPoops'].toString(),
+                                            style: const TextStyle(fontSize: 30.0, color: AppColors.problemBrown),
                                           )
+                                        ],
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                  const Divider(indent: 36, endIndent: 36, color: Colors.yellow),
-                                  CustomButtons.submit(
-                                      "Aggiungi cacco",
-                                      onPressed: () => Navigation.navigate(context, CaccoFormPage())
-                                  )
-                                ]
-                            ),
-                          )
-                      );
-                    }
-                ),
+                                  const SizedBox(width: 15),
+                                  Expanded(
+                                      flex: 1,
+                                      child: Container(
+                                        width: MediaQuery.of(context).size.width / 2,
+                                        height: 70,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white60, borderRadius: BorderRadius.circular(15.0)),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            const Text(
+                                              "Mese scorso",
+                                              style: TextStyle(fontSize: 20.0, color: Colors.black),
+                                            ),
+                                            Text(
+                                              data['lastMonthPoops'].toString(),
+                                              style: const TextStyle(fontSize: 30.0, color: AppColors.problemBrown),
+                                            )
+                                          ],
+                                        ),
+                                      )),
+                                ],
+                              ),
+                              /*const Divider(indent: 36, endIndent: 36, color: Colors.yellow),
+                              CustomButtons.submit("Aggiungi cacco",
+                                  onPressed: () => Navigation.navigate(context, CaccoFormPage()))*/
+                            ]),
+                          ));
+                    }),
                 //const Divider(indent: 36, endIndent: 36, color: Colors.yellow),
                 Expanded(
                     flex: 1,
                     child: SizedBox(
                         width: double.infinity,
                         child: SingleChildScrollView(
-                            physics: scrollable? const AlwaysScrollableScrollPhysics()
-                                : const NeverScrollableScrollPhysics(),
                             child: ConstrainedBox(
                                 constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height - 350),
                                 child: QueryStreamBuilder(
                                     stream: CaccoNetwork.getCurrentUserCaccos(),
-                                    builder: (BuildContext context, QuerySnapshot<Object?> data){
+                                    builder: (BuildContext context, QuerySnapshot<Object?> data) {
                                       List<QueryDocumentSnapshot<Object?>> docs = data.docs;
-                                      if(docs.isEmpty) {
+                                      if (docs.isEmpty) {
                                         return const Center(
-                                            child: TextWidget(
-                                                "Nessun cacco da mostrare",
+                                            child: TextWidget("Nessun cacco da mostrare",
                                                 fontSize: 18,
                                                 fontWeight: AppFontWeight.semiBold,
-                                                textColor: AppColors.heavyBrown)
-                                        );
-                                      }else{
+                                                textColor: AppColors.heavyBrown));
+                                      } else {
                                         List<QueryDocumentSnapshot<Object?>> recentCaccos = List.empty(growable: true);
                                         //Ordina dalla piÃ¹ recente
-                                        docs.sort((a,b) => b['timeStamp'].toString().compareTo(a['timeStamp'].toString()));
+                                        docs.sort(
+                                            (a, b) => b['timeStamp'].toString().compareTo(a['timeStamp'].toString()));
 
-                                        int index = 0; int size = docs.length;
-                                        while(index <size){
+                                        int index = 0;
+                                        int size = docs.length;
+                                        while (index < size) {
                                           recentCaccos.add(docs[index]);
                                           index++;
                                         }
 
-                                        if(recentCaccos.isEmpty){
-                                          return const TextWidget(
-                                              "Nessun cacco da mostrare",
+                                        if (recentCaccos.isEmpty) {
+                                          return const TextWidget("Nessun cacco da mostrare",
                                               fontSize: 18,
                                               fontWeight: AppFontWeight.semiBold,
                                               textColor: AppColors.heavyBrown);
-                                        }else{
+                                        } else {
                                           thereIsListView = true;
                                           return ListViewBuilder(
                                             data: recentCaccos,
                                             itemType: ItemType.CACCO_HOME_VIEW,
                                             scale: 1.0,
                                             shrinkWrap: true,
-                                            scrollPhysics: const NeverScrollableScrollPhysics(),
-                                            onTap: (QueryDocumentSnapshot<Object?> cacco){
+                                            scrollPhysics: !thereIsListView ? const NeverScrollableScrollPhysics() :
+                                                const AlwaysScrollableScrollPhysics(),
+                                            onTap: (QueryDocumentSnapshot<Object?> cacco) {
                                               Navigation.navigate(context, CaccoFormPage());
                                             },
                                           );
                                         }
                                       }
-                                    }
-                                )
+                                    })
                             )
                         )
                     )
