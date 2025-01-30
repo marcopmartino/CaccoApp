@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../network/GroupsNetwork.dart';
+import '../../../utility/AppColors.dart';
 import '../../../utility/DocumentStreamBuilder.dart';
 import '../../../utility/Navigation.dart';
 import '../../item/Item.dart';
@@ -46,7 +47,7 @@ class _GroupsTabState extends State<GroupsTab>{
         ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
           child: Image.asset(
-            'assets/exemple-poop.png',
+            'assets/backgroundPoop.png',
             height: 150.0,
             width: 150.0,
           ),

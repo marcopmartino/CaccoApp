@@ -8,6 +8,7 @@ import '../../helpers/Utils.dart';
 import '../../utility/Navigation.dart';
 import './homeTabs/HomeTab.dart';
 import 'CaccoFormPage.dart';
+import 'GroupFormPage.dart';
 import 'homeTabs/SearchUsersTab.dart';
 import 'homeTabs/GroupsTab.dart';
 
@@ -73,9 +74,8 @@ class _HomePageState extends State<HomePage>{
             onPressed: (){
               if (_selectedIndex == 0){
                 Navigation.navigate(context, CaccoFormPage());
-              }else if(_selectedIndex == 2){
-                //Navigation.navigate(context, GroupFormPage());
-                const SnackBar(content: Text('Prova Gruppi'),);
+              }else if(_selectedIndex == 1){
+                Navigation.navigate(context, GroupFormPage());
               }
             },
             child: const Icon(Icons.add, size:20),
