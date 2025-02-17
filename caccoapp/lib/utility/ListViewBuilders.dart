@@ -3,9 +3,28 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../view/item/CaccoHomeViewItem.dart';
 import '../view/item/CaccoItem.dart';
+import '../view/item/GroupItem.dart';
 import '../view/item/Item.dart';
+import '../view/item/RankingItem.dart';
 import 'AppColors.dart';
 import 'CustomEdgeInsets.dart';
+
+Item _getListItem(QueryDocumentSnapshot<Object?> itemData, ItemType itemType, int index) {
+  switch(itemType) {
+    case ItemType.CACCO:
+      return CaccoItem(itemData: itemData);
+    case ItemType.CACCO_HOME_VIEW:
+      return CaccoHomeViewItem(itemData: itemData);
+    case ItemType.USER_SEARCH:
+      return UserSearchItem(itemData: itemData);
+    case ItemType.GROUP:
+      return GroupItem(itemData: itemData);
+    case ItemType.RANKING_GROUP:
+      return RankingItem(itemData: itemData, rank: (index + 1).toString());
+    default:
+      return Item(itemData: itemData);
+  }
+}
 
 class ListViewBuilder extends StatelessWidget {
   final List<QueryDocumentSnapshot<Object?>> data;
@@ -28,19 +47,6 @@ class ListViewBuilder extends StatelessWidget {
     this.expanded = false,
   });
 
-  Item _getListItem(QueryDocumentSnapshot<Object?> itemData) {
-    switch(itemType) {
-      case ItemType.CACCO:
-        return CaccoItem(itemData: itemData);
-      case ItemType.CACCO_HOME_VIEW:
-        return CaccoHomeViewItem(itemData: itemData);
-      case ItemType.USER_SEARCH:
-        return UserSearchItem(itemData: itemData);
-      default:
-        return Item(itemData: itemData);
-    }
-  }
-
   Widget _listView() {
     return SizedBox(
         width: double.infinity,
@@ -58,9 +64,102 @@ class ListViewBuilder extends StatelessWidget {
               width: double.infinity,
               child: InkWell(
                   onTap: () => onTap(itemData),
-                  child: _getListItem(itemData)
+                  child: _getListItem(itemData, itemType, index)
               ),
             );
+          },
+        )
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return expanded ? Expanded(child: _listView()) : _listView();
+  }
+}
+
+class RankingListViewBuilder extends StatelessWidget {
+  final List<QueryDocumentSnapshot<Object?>> data;
+  final Function(QueryDocumentSnapshot<Object?> itemData) onTap;
+  final ItemType itemType;
+  final double scale;
+  final ScrollPhysics? scrollPhysics;
+  final bool shrinkWrap;
+  final bool? primaryScrollableWidget;
+  final bool expanded;
+
+  const RankingListViewBuilder({super.key,
+    required this.data,
+    required this.onTap,
+    this.itemType = ItemType.NONE,
+    this.scale = 1,
+    this.scrollPhysics,
+    this.shrinkWrap = false,
+    this.primaryScrollableWidget,
+    this.expanded = false,
+  });
+
+  Widget _listView() {
+    return SizedBox(
+        width: double.infinity,
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          primary: primaryScrollableWidget,
+          shrinkWrap: shrinkWrap,
+          physics: scrollPhysics,
+          itemCount: data.length,
+          itemBuilder: (context, index) {
+            final itemData = data[index];
+            switch(index){
+              case 0: return Container(
+                margin: CustomEdgeInsets.list(data.length, index, scale: scale),
+                // Spaziatura esterna
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.goldenYellow),
+                    borderRadius: BorderRadius.circular(20)
+                ),
+                child: InkWell(
+                    onTap: () => onTap(itemData),
+                    child: _getListItem(itemData, itemType, index)
+                ),
+              ); // Primo classificato
+              case 1: return Container(
+                margin: CustomEdgeInsets.list(data.length, index, scale: scale),
+                // Spaziatura esterna
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.grayBrown),
+                    borderRadius: BorderRadius.circular(20)
+                ),
+                child: InkWell(
+                    onTap: () => onTap(itemData),
+                    child: _getListItem(itemData, itemType, index)
+                ),
+              ); // Secondo classificato
+              case 2: return Container(
+                margin: CustomEdgeInsets.list(data.length, index, scale: scale),
+                // Spaziatura esterna
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.grayBrown),
+                    borderRadius: BorderRadius.circular(20)
+                ),
+                child: InkWell(
+                    onTap: () => onTap(itemData),
+                    child: _getListItem(itemData, itemType, index)
+                ),
+              ); // Terzo classificato
+              default: return Container(
+                margin: CustomEdgeInsets.list(data.length, index, scale: scale),
+                // Spaziatura esterna
+                width: double.infinity,
+                child: InkWell(
+                    onTap: () => onTap(itemData),
+                    child: _getListItem(itemData, itemType, index)
+                ),
+              ); // Altri classificati
+            }
           },
         )
     );
@@ -131,7 +230,7 @@ class DismissibleListViewBuilder extends ListViewBuilder {
                   width: double.infinity,
                   child: InkWell(
                       onTap: () => onTap(itemData),
-                      child: _getListItem(itemData)
+                      child: _getListItem(itemData, itemType, index)
                   ),
                 )
             );

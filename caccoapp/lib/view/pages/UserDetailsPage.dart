@@ -1,6 +1,5 @@
 import 'package:CaccoApp/network/FollowerNetwork.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:floating_snackbar/floating_snackbar.dart';
 import 'package:flutter/material.dart';
 
 import '../../helpers/Utils.dart';
@@ -28,18 +27,6 @@ class UserDetailsPage extends StatefulWidget {
 }
 
 class _UserDetailsPage extends State<UserDetailsPage> {
-  var followed = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    FollowerNetwork.checkFollow(widget.userId).then((result) {
-      setState(() {
-        followed = result;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +34,7 @@ class _UserDetailsPage extends State<UserDetailsPage> {
       title: "Dettagli profilo",
       withAppbar: true,
       body: DocumentStreamBuilder(
-        stream: CaccoNetwork.getCaccosInfo(widget.userId),
+        stream: UsersNetwork.getCurrentUserDetails(),
         builder: (BuildContext builder, DocumentSnapshot<Object?> caccosInfo) {
           return FutureBuilder(
             future: UsersNetwork.getUserDetails(widget.userId),
@@ -100,7 +87,7 @@ class _UserDetailsPage extends State<UserDetailsPage> {
                                                       color: Colors.black)
                                                   ),
                                                   TextSpan(
-                                                    text: "Cacco ${Utils.getCurrentMonth()}",
+                                                    text: "Cacco a ${Utils.getCurrentMonth()}",
                                                     style: const TextStyle(fontSize: 14, color: Colors.black),
                                                   )
                                                 ]
@@ -143,105 +130,6 @@ class _UserDetailsPage extends State<UserDetailsPage> {
                                       ]
                                     ),
                                     // Immagine profilo e prime info
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 2,
-                                          child: Center(
-                                            child: RichText(
-                                              textAlign: TextAlign.center,
-                                              text: TextSpan(
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                    text: "${followInfo['follower'].toString()}\n",
-                                                    style: const TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.black)
-                                                  ),
-                                                  const TextSpan(
-                                                    text: "Follower",
-                                                    style: TextStyle(fontSize: 14, color: Colors.black),
-                                                  )
-                                                ]
-                                              )
-                                            )
-                                          )
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Center(
-                                            child: RichText(
-                                              textAlign: TextAlign.center,
-                                              text: TextSpan(
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                    text: "${followInfo['following'].toString()}\n",
-                                                    style: const TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.black)
-                                                  ),
-                                                  const TextSpan(
-                                                    text: "Seguiti",
-                                                    style: TextStyle(fontSize: 14, color: Colors.black),
-                                                  )
-                                                ]
-                                              )
-                                            )
-                                          )
-                                        ),
-                                      ],
-                                    ),
-                                    //Numero follower e seguiti
-                                    Center(
-                                      child: StatefulBuilder(
-                                        builder: (thisLowerContext, innerSetState) {
-                                          return ButtonTheme(
-                                            minWidth: 150,
-                                            height: 100,
-                                            child: ElevatedButton(
-                                              style: followed
-                                                ? ElevatedButton.styleFrom(
-                                                  textStyle: const TextStyle(fontSize: 16),
-                                                  backgroundColor: Colors.red,
-                                                ): ElevatedButton.styleFrom(
-                                                  textStyle: const TextStyle(fontSize: 16),
-                                                  backgroundColor: Colors.green,
-                                                ),
-                                              onPressed: () {
-                                                if (followed) {
-                                                  FollowerNetwork.removeFollowing(widget.userId);
-                                                  innerSetState(() {
-                                                    followed = false;
-                                                  });
-                                                  floatingSnackBar(
-                                                    message: "Non segui più ${widget.username}",
-                                                    backgroundColor: Colors.red,
-                                                    textStyle: const TextStyle(fontSize: 18),
-                                                    context: context,
-                                                    duration: const Duration(seconds: 5));
-                                                } else {
-                                                  FollowerNetwork.addFollowing(widget.userId);
-                                                  innerSetState(() {
-                                                    followed = true;
-                                                  });
-                                                  floatingSnackBar(
-                                                    message: "Ora segui ${widget.username}",
-                                                    backgroundColor: Colors.green,
-                                                    textStyle: const TextStyle(fontSize: 18),
-                                                    context: context,
-                                                    duration: const Duration(seconds: 5));
-                                                  }
-                                                },
-                                                child: followed ? const Text("Unfollow") : const Text("Follow"),
-                                             )
-                                          );
-                                        },
-                                      )
-                                    )
-                                    //Tasto segui
                                   ]
                                 ),
                               )
@@ -301,7 +189,7 @@ class _UserDetailsPage extends State<UserDetailsPage> {
                                   )
                                 )
                               )
-                            )
+                            ) //Lista cacco
                           ],
                         )
                       );

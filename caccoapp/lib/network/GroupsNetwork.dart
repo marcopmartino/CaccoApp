@@ -8,35 +8,23 @@ import '../utility/Extensions.dart';
 class GroupsNetwork{
   static final CollectionReference _groups = FirebaseFirestore.instance.collection('groups');
 
-  static void joinGroup(String groupId, bool owner) async {
-    owner ?
-      await _groups.doc(groupId).collection('members').doc(FirebaseAuth.instance.currentUser!.uid).set({"role": 'owner'}):
-      await _groups.doc(groupId).collection('members').doc(FirebaseAuth.instance.currentUser!.uid).set({"role": 'member'});
-    increaseGroupMemberCounter(groupId);
-  }
-
-  static void increaseGroupMemberCounter(String groupId) async {
-    await _groups.doc(groupId).update({'memberCounter': FieldValue.increment(1)});
-  }
-
-  static Future<void> exitGroup(String groupId) async {
-    await _groups.doc(groupId).collection('member').doc(FirebaseAuth.instance.currentUser!.uid).delete();
-    decreaseGroupMemberCounter(groupId);
+  static Future<void> addMember(String groupId, String memberId) async{
+    await _groups.doc(groupId).update(
+        {'members': FieldValue.arrayUnion([memberId])});
+    await _groups.doc(groupId).update(
+        {'membersCounter': FieldValue.increment(1)});
   }
 
   static Future<void> removeMember(String groupId, String memberId) async{
-    await _groups.doc(groupId).collection('member').doc(memberId).delete();
-    decreaseGroupMemberCounter(groupId);
-  }
-
-  static void decreaseGroupMemberCounter(String groupId) async {
-    await _groups.doc(groupId).update({'memberCounter': FieldValue.increment(-1)});;
+    await _groups.doc(groupId).update(
+        {'members': FieldValue.arrayRemove([memberId])});
+    await _groups.doc(groupId).update(
+        {'membersCounter': FieldValue.increment(-1)});
   }
 
   static Future<String> createGroup(Map<String, dynamic> group) async {
     DocumentReference doc = await _groups.add(group);
-    doc.set({'memberCounter': 0});
-    increaseGroupMemberCounter(doc.id);
+    addMember(doc.id, FirebaseAuth.instance.currentUser!.uid.toString());
     return doc.id;
   }
 
@@ -44,4 +32,9 @@ class GroupsNetwork{
     return DeviceInfo.getQueryStream((userOrDeviceId) =>
         _groups.snapshots());
   }
+
+  static Stream<DocumentSnapshot<Object?>> getGroupDetails(String groupId) {
+    return _groups.doc(groupId).snapshots();
+  }
+
 }

@@ -46,6 +46,9 @@ dependencies:
   shared_preferences: ^2.3.0
   floating_snackbar: ^1.0.5
   logo_n_spinner: 0.1.8
+  multi_stream_builder: ^0.0.1
+  uni_links5: ^0.5.0
+  share_plus: ^3.0.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -77,7 +80,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/
-     - fonts/
+     - assets/fonts/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -93,36 +96,39 @@ flutter:
   fonts:
     - family: Metamasie
       fonts:
-        - asset: fonts/matemasie/Matemasie-Regular.ttf
+        - asset: assets/fonts/matemasie/Matemasie-Regular.ttf
     - family: Roboto
       fonts:
-        - asset: fonts/roboto/Roboto-Black.ttf
-        - asset: fonts/roboto/Roboto-BlackItalic.ttf
-        - asset: fonts/roboto/Roboto-Bold.ttf
-        - asset: fonts/roboto/Roboto-BoldItalic.ttf
-        - asset: fonts/roboto/Roboto-Italic.ttf
-        - asset: fonts/roboto/Roboto-Light.ttf
-        - asset: fonts/roboto/Roboto-LightItalic.ttf
-        - asset: fonts/roboto/Roboto-Medium.ttf
-        - asset: fonts/roboto/Roboto-MediumItalic.ttf
-        - asset: fonts/roboto/Roboto-Regular.ttf
-        - asset: fonts/roboto/Roboto-Thin.ttf
-        - asset: fonts/roboto/Roboto-ThinItalic.ttf
+        - asset: assets/fonts/roboto/Roboto-Black.ttf
+        - asset: assets/fonts/roboto/Roboto-BlackItalic.ttf
+        - asset: assets/fonts/roboto/Roboto-Bold.ttf
+        - asset: assets/fonts/roboto/Roboto-BoldItalic.ttf
+        - asset: assets/fonts/roboto/Roboto-Italic.ttf
+        - asset: assets/fonts/roboto/Roboto-Light.ttf
+        - asset: assets/fonts/roboto/Roboto-LightItalic.ttf
+        - asset: assets/fonts/roboto/Roboto-Medium.ttf
+        - asset: assets/fonts/roboto/Roboto-MediumItalic.ttf
+        - asset: assets/fonts/roboto/Roboto-Regular.ttf
+        - asset: assets/fonts/roboto/Roboto-Thin.ttf
+        - asset: assets/fonts/roboto/Roboto-ThinItalic.ttf
     - family: Josefin-Sans
       fonts:
-        - asset: fonts/josefin-sans/JosefinSans-Bold.ttf
-        - asset: fonts/josefin-sans/JosefinSans-BoldItalic.ttf
-        - asset: fonts/josefin-sans/JosefinSans-ExtraLight.ttf
-        - asset: fonts/josefin-sans/JosefinSans-ExtraLightItalic.ttf
-        - asset: fonts/josefin-sans/JosefinSans-Italic.ttf
-        - asset: fonts/josefin-sans/JosefinSans-Light.ttf
-        - asset: fonts/josefin-sans/JosefinSans-LightItalic.ttf
-        - asset: fonts/josefin-sans/JosefinSans-Medium.ttf
-        - asset: fonts/josefin-sans/JosefinSans-MediumItalic.ttf
-        - asset: fonts/josefin-sans/JosefinSans-Regular.ttf
-        - asset: fonts/josefin-sans/JosefinSans-SemiBold.ttf
-        - asset: fonts/josefin-sans/JosefinSans-SemiBoldItalic.ttf
-        - asset: fonts/josefin-sans/JosefinSans-Thin.ttf
-        - asset: fonts/josefin-sans/JosefinSans-ThinItalic.ttf
+        - asset: assets/fonts/josefin-sans/JosefinSans-Bold.ttf
+        - asset: assets/fonts/josefin-sans/JosefinSans-BoldItalic.ttf
+        - asset: assets/fonts/josefin-sans/JosefinSans-ExtraLight.ttf
+        - asset: assets/fonts/josefin-sans/JosefinSans-ExtraLightItalic.ttf
+        - asset: assets/fonts/josefin-sans/JosefinSans-Italic.ttf
+        - asset: assets/fonts/josefin-sans/JosefinSans-Light.ttf
+        - asset: assets/fonts/josefin-sans/JosefinSans-LightItalic.ttf
+        - asset: assets/fonts/josefin-sans/JosefinSans-Medium.ttf
+        - asset: assets/fonts/josefin-sans/JosefinSans-MediumItalic.ttf
+        - asset: assets/fonts/josefin-sans/JosefinSans-Regular.ttf
+        - asset: assets/fonts/josefin-sans/JosefinSans-SemiBold.ttf
+        - asset: assets/fonts/josefin-sans/JosefinSans-SemiBoldItalic.ttf
+        - asset: assets/fonts/josefin-sans/JosefinSans-Thin.ttf
+        - asset: assets/fonts/josefin-sans/JosefinSans-ThinItalic.ttf
+    - family: CustomIcons
+      fonts:
+        - asset: assets/fonts/CustomIcons.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
