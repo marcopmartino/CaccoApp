@@ -28,9 +28,9 @@
                 <action android:name="android.intent.action.BROWSABLE" />
 
                 <data
-                    android:scheme="CaccoApp"
-                    android:host="caccoapp.com"
-                    android:pathPattern="/groups/.*"/>
+                    android:scheme="https"
+                    android:host="marcopmartino.github.io"
+                    android:pathPattern="/CaccoApp/.*"/>
 
             </intent-filter>
         </activity>

@@ -3,6 +3,6 @@
     "target": {
         "namespace": "caccoapp",
         "package_name": "it.caccoapp.caccoapp",
-        "sha256_cert_fingerprints": ["F0:1F:EC:3D:3A:0D:3C:4D:6D:3D:3A:0D:3C:4D:6D:3D:3A:0D:3C:4D:6D:3D:3A:0D:3C:4D:6D:3D:3A:0D:3C:4D:6D"]
+        "sha256_cert_fingerprints": ["21:8B:52:AD:ED:13:B8:F7:25:AD:2E:AE:86:10:45:32:D5:CA:A4:D9:94:B9:A2:88:EF:10:98:6F:D8:EE:3C:2A"]
     }
 }]
