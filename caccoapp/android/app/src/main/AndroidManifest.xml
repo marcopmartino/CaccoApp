@@ -30,7 +30,7 @@
                 <data
                     android:scheme="https"
                     android:host="marcopmartino.github.io"
-                    android:pathPattern="/CaccoApp/.*"/>
+                    android:pathPattern="/CaccoApp/*"/>
 
             </intent-filter>
         </activity>
