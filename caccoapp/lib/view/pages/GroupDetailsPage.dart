@@ -132,7 +132,7 @@ class _GroupDetailsPage extends State<GroupDetailsPage> {
                                                 backgroundColor: Colors.blue),
                                             iconAlignment: IconAlignment.start,
                                             onPressed: () {
-                                              String inviteUrl = "https://github.com/marcopmartino/CaccoApp/invite?groupId=${widget.groupId}";
+                                              String inviteUrl = "https://marcopmartino.github.io/CaccoApp?groupId=${widget.groupId}";
                                               Share.share("Vuoi competere con me? Unisciti al gruppo ${groupInfo['nome']} su CaccoApp! $inviteUrl");
                                               floatingSnackBar(
                                                   message: "Invito inviato",
