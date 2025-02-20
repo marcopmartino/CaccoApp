@@ -1,8 +1,0 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-        "namespace": "android_app",
-        "package_name": "it.caccoapp",
-        "sha256_cert_fingerprints": ["21:8B:52:AD:ED:13:B8:F7:25:AD:2E:AE:86:10:45:32:D5:CA:A4:D9:94:B9:A2:88:EF:10:98:6F:D8:EE:3C:2A"]
-    }
-}]

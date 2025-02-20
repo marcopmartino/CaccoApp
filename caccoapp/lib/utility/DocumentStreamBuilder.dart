@@ -68,6 +68,7 @@ class QueryStreamBuilder extends StreamBuilder<QuerySnapshot> {
         return builder(context, data);
       });
 
+
 }
 
 // QueryStreamBuilder che si occupa anche di creare la view della lista
@@ -104,40 +105,7 @@ class ListViewStreamBuilder extends QueryStreamBuilder {
   });
 }
 
-// QueryStreamBuilder che si occupa di creare la view della lista senza onTap
-class ListViewStreamBuilderNoTap extends QueryStreamBuilder{
-
-  ListViewStreamBuilderNoTap({super.key,
-    required super.stream,
-    ItemType itemType = ItemType.NONE,
-    double scale = 1,
-    ScrollPhysics? scrollPhysics,
-    bool shrinkWrap = false,
-    bool? primaryScrollableWidget,
-    bool expanded = false,
-    List<QueryDocumentSnapshot<Object?>> Function(List<QueryDocumentSnapshot<Object?>> data)? filterFunction,
-  }) : super(builder: (BuildContext context, QuerySnapshot<Object?> data) {
-
-    List<QueryDocumentSnapshot<Object?>> docs = data.docs;
-
-    if (filterFunction != null) {
-      docs = filterFunction(docs);
-    }
-
-    return ListViewBuilder(
-      data: docs,
-      itemType: itemType,
-      onTap: (QueryDocumentSnapshot<Object?> itemData) {},
-      scale: scale,
-      scrollPhysics: scrollPhysics,
-      shrinkWrap: shrinkWrap,
-      primaryScrollableWidget: primaryScrollableWidget,
-      expanded: expanded,
-    );
-  });
-}
-
-// QueryStreamBuilder che si occupa di creare la view della lista con Dismissible
+//
 class DismissibleListViewStreamBuilder extends QueryStreamBuilder {
 
   DismissibleListViewStreamBuilder({super.key,

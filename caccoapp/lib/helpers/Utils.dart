@@ -1,18 +1,15 @@
 import 'package:CaccoApp/helpers/LoginService.dart';
-import 'package:CaccoApp/network/GroupsNetwork.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../utility/AppColors.dart';
 import '../utility/Navigation.dart';
-import '../view/pages/HomePage.dart';
 import '../view/pages/UserDetailsPage.dart';
 
 class Utils{
   static GlobalKey<NavigatorState> mainListNav = GlobalKey();
   static GlobalKey<NavigatorState> mainAppNav = GlobalKey();
 
-  static AppBar getAppbarHome(BuildContext context){
+  static AppBar getAppbar(BuildContext context){
     return AppBar(
       backgroundColor: AppColors.mainBrown,
       title: Row(
@@ -45,46 +42,6 @@ class Utils{
                       userId: LoginService.loggedInUserModel!.id!,
                       username: LoginService.loggedInUserModel!.username!
                   ));
-                },
-              )
-          )
-        ],
-      ),
-      centerTitle: true,
-    );
-  }
-
-  static AppBar getAppbarGroups(BuildContext context, String title, String groupId){
-    return AppBar(
-      backgroundColor: AppColors.mainBrown,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.asset(
-                'assets/sample-poop.png',
-                height: 150.0,
-                width: 45.0,
-              ),
-            ),
-          ),
-          const SizedBox(width: 25,),
-          const Expanded(
-            flex: 3,
-            child: Text('CaccoApp', style: TextStyle(fontFamily: 'Matemasie')),
-          ),
-          const SizedBox(width: 100,),
-          Expanded(
-              flex: 1,
-              child: IconButton(
-                icon: const Icon(Icons.exit_to_app_rounded),
-                iconSize: 24,
-                onPressed: (){
-                  GroupsNetwork.removeMember(groupId, FirebaseAuth.instance.currentUser!.uid);
-                  Navigation.navigate(context, const HomePage());
                 },
               )
           )

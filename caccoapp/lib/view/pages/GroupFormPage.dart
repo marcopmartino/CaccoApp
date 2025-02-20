@@ -113,8 +113,7 @@ class _GroupFormState extends State<GroupFormPage> {
                         String formattedDate = formatter.format(now);
 
                         await GroupsNetwork.createGroup(Group(
-                            adminId: FirebaseAuth.instance.currentUser!.uid,
-                            adminName: FirebaseAuth.instance.currentUser!.displayName!,
+                            admin: FirebaseAuth.instance.currentUserId!,
                             name: _nameTextController.text,
                             creationDate: formattedDate,
                         ).toMap());

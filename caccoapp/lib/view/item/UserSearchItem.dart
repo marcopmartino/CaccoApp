@@ -25,6 +25,13 @@ class UserSearchItem extends Item {
                       itemData['username'].toString(),
                       fontSize: 18, textColor: AppColors.sandBrown)
               ), //Name
+              /*Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 8), // Spaziatura esterna
+                child: TextWidget(
+                  itemData['email'].toString(),
+                  textColor: AppColors.sandBrown,
+                ),
+              ),*/ //Email
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
                 child: IconTextWidget(
