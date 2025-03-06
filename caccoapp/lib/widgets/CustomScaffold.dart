@@ -20,7 +20,7 @@ class CustomScaffold extends StatelessWidget {
           backgroundColor: AppColors.mainBrown,
           title: Text(title, style: const TextStyle(fontFamily: 'Matemasie'))
       ) : null,
-      backgroundColor: Colors.grey,
+      backgroundColor: AppColors.lightBlack,
       body: body,
       floatingActionButton: floatingActionButton,
       resizeToAvoidBottomInset: resize,

@@ -8,7 +8,7 @@ class FollowerNetwork{
       .doc(FirebaseAuth.instance.currentUser!.uid);
 
   static void addFollowing(String followedId) async {
-    DocumentReference doc = await _currentUserFollowing.collection('userFollowing').add({"followedId": followedId});
+    await _currentUserFollowing.collection('userFollowing').add({"followedId": followedId});
     increaseFollowingAndFollowerCounter(followedId);
   }
 

@@ -31,7 +31,7 @@ class CustomDecoration {
     return InputDecoration(
       floatingLabelBehavior: FloatingLabelBehavior.always,
       floatingLabelAlignment: FloatingLabelAlignment.start,
-      hintStyle: const TextStyle(color: Colors.black12),
+      hintStyle: const TextStyle(color: Colors.white30),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: const BorderSide(
@@ -46,12 +46,12 @@ class CustomDecoration {
       ),
       labelStyle: const TextStyle(
           fontSize: 20,
-          fontWeight: AppFontWeight.semiBold,
-          color: AppColors.mainBrown
+          fontWeight: AppFontWeight.bold,
+          color: Colors.yellow
       ),
       labelText: nome,
       filled: true,
-      fillColor: Colors.white,
+      fillColor: AppColors.softBrown,
       hintText: hint,
     );
   }

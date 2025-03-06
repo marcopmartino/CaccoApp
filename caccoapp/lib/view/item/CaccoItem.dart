@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -13,13 +14,15 @@ class CaccoItem extends Item {
 
     Duration difference = current.difference(temp);
 
-    print(difference);
+    if (kDebugMode) {
+      print(difference);
+    }
 
     if(difference.inDays>0){
       if(difference.inDays>6){
         int week = (difference.inDays/7).round();
         if(week>4){
-          return "PiÃ¹ di un mese fa";
+          return "Piu' di un mese fa";
         }else{
           return "$week settimane fa";
         }
@@ -69,7 +72,7 @@ class CaccoItem extends Item {
                       color: Colors.black,
                       fontWeight: FontWeight.normal,
                     ),
-                    "${itemData['nome']} â€¢ ${calculateEta(itemData['data'])}"
+                    calculateEta(itemData['data'])
                 ),
               )
             ]

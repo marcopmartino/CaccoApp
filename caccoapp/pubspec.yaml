@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.0.3+3
 
 environment:
   sdk: '>=3.3.3 <4.0.0'
@@ -33,7 +33,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   cloud_firestore: ^5.5.0
   firebase_core: ^3.8.0
-  firebase_auth: ^5.3.3
+  firebase_auth: ^5.5.0
   google_sign_in: ^6.2.1
   http: ^1.2.2
   provider: ^6.1.2
@@ -46,6 +46,12 @@ dependencies:
   shared_preferences: ^2.3.0
   floating_snackbar: ^1.0.5
   logo_n_spinner: 0.1.8
+  app_links: ^6.4.0
+  share_plus: ^10.1.4
+  android_alarm_manager_plus: ^4.0.7
+  flutter_local_notifications: ^18.0.1
+  page_transition: ^2.2.1
+  url_launcher: ^6.3.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -78,6 +84,10 @@ flutter:
   assets:
      - assets/
      - fonts/
+     - fonts/roboto/
+     - fonts/josefin-sans/
+     - fonts/BalooBhai/
+     - fonts/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -91,9 +101,9 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   fonts:
-    - family: Metamasie
+    - family: Matemasie
       fonts:
-        - asset: fonts/matemasie/Matemasie-Regular.ttf
+        - asset: fonts/Matemasie-Regular.ttf
     - family: Roboto
       fonts:
         - asset: fonts/roboto/Roboto-Black.ttf
@@ -108,7 +118,7 @@ flutter:
         - asset: fonts/roboto/Roboto-Regular.ttf
         - asset: fonts/roboto/Roboto-Thin.ttf
         - asset: fonts/roboto/Roboto-ThinItalic.ttf
-    - family: Josefin-Sans
+    - family: JosefinSans
       fonts:
         - asset: fonts/josefin-sans/JosefinSans-Bold.ttf
         - asset: fonts/josefin-sans/JosefinSans-BoldItalic.ttf
@@ -124,5 +134,22 @@ flutter:
         - asset: fonts/josefin-sans/JosefinSans-SemiBoldItalic.ttf
         - asset: fonts/josefin-sans/JosefinSans-Thin.ttf
         - asset: fonts/josefin-sans/JosefinSans-ThinItalic.ttf
+    - family: CustomIcons
+      fonts:
+        - asset: fonts/CustomIcons.ttf
+    - family: BalooBhai
+      fonts:
+        - asset: fonts/BalooBhai/BalooBhai-Regular.ttf
+    - family: BalooBhai2
+      fonts:
+        - asset: fonts/BalooBhai/BalooBhai2-Regular.ttf
+        - asset: fonts/BalooBhai/BalooBhai2-SemiBold.ttf
+          weight: 500
+        - asset: fonts/BalooBhai/BalooBhai2-Medium.ttf
+          weight: 600
+        - asset: fonts/BalooBhai/BalooBhai2-Bold.ttf
+          weight: 700
+        - asset: fonts/BalooBhai/BalooBhai2-ExtraBold.ttf
+          weight: 800
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

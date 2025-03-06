@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:logo_n_spinner/logo_n_spinner.dart';
 import 'package:radio_group_v2/radio_group_v2.dart';
 
 import 'package:CaccoApp/network/ProfileNetwork.dart';
@@ -19,9 +20,12 @@ Genders _genders = Genders.none;
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
 
+  static const route = '/signupage';
+
   @override
   State<SignupPage> createState() => _SignupPageState();
 }
+
 
 class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
@@ -38,6 +42,19 @@ class _SignupPageState extends State<SignupPage> {
   final _focusEmail = FocusNode();
   final _focusPassw = FocusNode();
   final _focusConfirmPassw = FocusNode();
+
+  Genders translateGender(String value) {
+    switch (value) {
+      case 'Uomo':
+        return Genders.male;
+      case 'Donna':
+        return Genders.female;
+      case 'Altro':
+        return Genders.other;
+      default:
+        return Genders.none;
+    }
+  }
 
   Future<void> _showAlertDialog(String error) async {
     return showDialog<void>(
@@ -181,8 +198,15 @@ class _SignupPageState extends State<SignupPage> {
                                 ],
                               )), //Email&Password
                           _isProcessing
-                              ? const CircularProgressIndicator()
-                              : Column(
+                            ? const Center(
+                              child: LogoandSpinner(
+                                imageAssets: 'assets/temp-image.jpg',
+                                reverse: true,
+                                arcColor: AppColors.mainBrown,
+                                spinSpeed: Duration(milliseconds: 500),
+                              )
+                            )
+                          : Column(
                             children: [
                               CustomElevatedIconButton(
                                   height: 50,
@@ -204,10 +228,12 @@ class _SignupPageState extends State<SignupPage> {
                                           password: _passwTextController.text);
 
                                       if (user != null && user is User) {
+                                        _genders = translateGender(_genderController.value);
                                         Object? result = await ProfileNetwork.addUser(
                                             id: user.uid,
                                             username: _usernameController.text,
                                             email: _emailTextController.text,
+                                            groups: [],
                                             gender: _genders.name);
 
                                         if (result == null) {
@@ -242,7 +268,7 @@ class _SignupPageState extends State<SignupPage> {
                               const SizedBox(height: 25),
                               InkWell(
                                   onTap: () {
-                                    Navigation.navigate(context, const LoginPage());
+                                    Navigation.navigateFromLeft(context, const LoginPage());
                                   },
                                   child: const Text(
                                     CaccoTxt.loginLabel,

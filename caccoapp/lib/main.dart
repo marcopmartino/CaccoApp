@@ -3,7 +3,7 @@ import 'package:CaccoApp/view/pages/HomePage.dart';
 import 'package:CaccoApp/view/pages/LoginPage.dart';
 import 'package:CaccoApp/view/pages/SignupPage.dart';
 import 'package:CaccoApp/view/pages/WelcomePage.dart';
-import 'package:CaccoApp/view/pages/homeTabs/SearchUsersTab.dart';
+import 'package:CaccoApp/view/pages/homeTabs/GroupsTab.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:CaccoApp/utility/AppColors.dart';
@@ -39,18 +39,18 @@ Future<void> main() async{
               navigatorKey: Utils.mainAppNav,
               title: 'CaccoApp',
               theme: ThemeData(
-                  fontFamily: 'JosefinSans',
+                  fontFamily: 'Roboto',
                   primarySwatch: AppColors.getMaterialColor(AppColors.softBrown),
-                  useMaterial3: false
+                  useMaterial3: true
               ),
               home: isLoggedIn ? const HomePage() : const WelcomePage(),
               routes: {
-                //'/': (context) => SplashPage(duration: 3, goToPage: '/homepage'),
-                '/homepage': (context) => const HomePage(),
-                '/welcomepage': (context) => const WelcomePage(),
-                '/searchuserspage': (context) => const SearchBar(),
-                '/loginpage': (context) => const LoginPage(),
-                '/signuppage': (context) => const SignupPage(),
+                WelcomePage.route: (context) => const WelcomePage(),
+                LoginPage.route: (context) => const LoginPage(),
+                SignupPage.route: (context) => const SignupPage(),
+                HomePage.route: (context) => const HomePage(),
+                GroupsTab.route: (context) => const HomePage(index: 1,),
+                //'/searchuserspage': (context) => const SearchBar(),
               }
           )
       )
@@ -59,8 +59,7 @@ Future<void> main() async{
 
 class MyKeys{
   static final first = GlobalKey(debugLabel: 'Home');
-  static final second = GlobalKey(debugLabel: 'SearchUsers');
   static final third = GlobalKey(debugLabel: 'Groups');
 
-  static List<GlobalKey> getKeys() => [first, second, third];
+  static List<GlobalKey> getKeys() => [first, third];
 }

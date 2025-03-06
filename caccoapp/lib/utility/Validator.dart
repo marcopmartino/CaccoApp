@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 
 class Validator {
 
@@ -89,8 +90,10 @@ class Validator {
   }
 
   static String? validateEqualPassword({required String? password, required String? chkPassword}){
-    print("${password!}   ${chkPassword!}");
-    if (password.isEmpty && chkPassword.isEmpty) {
+    if (kDebugMode) {
+      print("${password!}   ${chkPassword!}");
+    }
+    if (password!.isEmpty && chkPassword!.isEmpty) {
       return null;
     }
 
@@ -98,7 +101,7 @@ class Validator {
       return 'Il campo "Nuova password" non può essere vuoto!';
     } else if (password.length < 8) {
       return 'Inserire una password con una lunghezza di almeno 8 caratteri!';
-    } else if (chkPassword.isEmpty){
+    } else if (chkPassword!.isEmpty){
       return 'Il campo "Conferma Password" non può essere vuoto!';
     } else if (chkPassword != password){
       return 'Le password inserite non coincidono!';

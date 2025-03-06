@@ -15,6 +15,8 @@ class AppColors {
   static const Color tawnyBrown = Color(0xFFC37F4F);
   static const Color grayBrown = Color(0xFFDAC1AF);
   static const Color transparentGrayBrown = Color(0x66DAC1AF);
+  static const Color goldenYellow = Color(0xFFD1B280);
+  static const Color lightBlack = Color(0xDB151718);
 
   static MaterialColor getMaterialColor(Color color){
     final int red = color.red;

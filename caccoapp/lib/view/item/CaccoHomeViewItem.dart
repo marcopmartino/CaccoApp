@@ -20,7 +20,7 @@ class CaccoHomeViewItem extends Item {
 
   @override
   Widget build(BuildContext context) {
-    final String chef = itemData['chef'].toString();
+    final String chef = itemData['chefId'].toString();
 
     final timeStamp = DateFormat('dd-MM-yy HH:mm').parse(itemData['timeStamp']);
     final date = itemData['timeStamp'].substring(0,11);
@@ -91,13 +91,12 @@ class CaccoHomeViewItem extends Item {
 
     final check = checkToday(timeStamp);
     if (chef == FirebaseAuth.instance.currentUserId) {
-      var username = FirebaseAuth.instance.currentUser?.displayName!;
       if(check == 0){
-        return caccoItem('$username - Oggi alle $time');
+        return caccoItem('Oggi alle $time');
       }else if(check == -1){
-        return caccoItem('$username - Ieri alle $time');
+        return caccoItem('Ieri alle $time');
       }else{
-        return caccoItem('$username - $date');
+        return caccoItem('$date');
       }
     } else {
       return DocumentStreamBuilder(

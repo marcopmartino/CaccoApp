@@ -23,7 +23,8 @@ enum CaccoQuantity{
 
 class Cacco{
   late final String? id;
-  late final String chef;
+  late final String chefId;
+  late final String? chefUsername;
   late final String? name;
   late final String? description;
   late final String caccoType;
@@ -32,7 +33,8 @@ class Cacco{
 
   Cacco({
     this.id,
-    required this.chef,
+    required this.chefId,
+    required this.chefUsername,
     this.name = "",
     this.description = "",
     required this.caccoType,
@@ -42,7 +44,8 @@ class Cacco{
 
   Map<String, dynamic> toMap(){
     return{
-      'chef': chef,
+      'chefId': chefId,
+      'chefUsername': chefUsername,
       'name': name,
       'description': description,
       'caccoType': caccoType,
@@ -53,7 +56,8 @@ class Cacco{
 
   Cacco.fromMap(Map<String, dynamic> caccoMap):
         id = caccoMap['id'],
-        chef = caccoMap['chef'],
+        chefId = caccoMap['chefId'],
+        chefUsername = caccoMap['chefUsername'],
         name = caccoMap['name'],
         description = caccoMap['description'],
         caccoType = caccoMap['caccoType'],
@@ -62,7 +66,8 @@ class Cacco{
 
   Cacco.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc):
         id = doc.id,
-        chef = doc.data()!['chef'],
+        chefId = doc.data()!['chefId'],
+        chefUsername = doc.data()!['chefUsername'],
         name = doc.data()!['name'],
         description = doc.data()!['description'],
         caccoType = doc.data()!['caccoType'],

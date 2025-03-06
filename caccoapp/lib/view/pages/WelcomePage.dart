@@ -1,6 +1,7 @@
 import 'package:custom_signin_buttons/button_builder.dart';
 import 'package:custom_signin_buttons/button_data.dart';
 import 'package:custom_signin_buttons/button_list.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,8 @@ import 'LoginPage.dart';
 
 class WelcomePage extends StatefulWidget{
   const WelcomePage({super.key});
+
+  static const route = '/welcomepage';
 
   @override
   State<WelcomePage> createState() => _WelcomePageState();
@@ -106,7 +109,7 @@ class _WelcomePageState extends State<WelcomePage>{
                         textColor: Colors.white,
                         splashColor: Colors.transparent,
                         onPressed: (){
-                          Navigation.navigate(context, const LoginPage());
+                          Navigation.navigateFromBottom(context, const LoginPage());
                         }
                     ), //Email login button
                     const SizedBox(height: 20),
@@ -133,7 +136,9 @@ class _WelcomePageState extends State<WelcomePage>{
                             _showAlertDialog("Errore login!");
                           }
                         } on PlatformException{
-                          print('PlatformExpection');
+                          if (kDebugMode) {
+                            print('PlatformExpection');
+                          }
                         }
                       },
                       splashColor: Colors.transparent,
@@ -141,7 +146,7 @@ class _WelcomePageState extends State<WelcomePage>{
                     const SizedBox(height: 20),
                     InkWell(
                         onTap: (){
-                          Navigation.navigate(context, const SignupPage());
+                          Navigation.navigateFromLeft(context, const SignupPage());
                         },
                         child: const Text(
                           CaccoTxt.signUpTxt,

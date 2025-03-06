@@ -14,6 +14,8 @@ import 'SignupPage.dart';
 class LoginPage extends StatefulWidget{
   const LoginPage({super.key});
 
+  static const route = '/loginpage';
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -163,7 +165,7 @@ class _LoginPageState extends State<LoginPage>{
                                                   (Route route) => false);
                                         }
                                       }else{
-                                        _showAlertDialog(user as String);
+                                        _showAlertDialog("Errore durante il login");
                                       }
 
                                     }
@@ -181,7 +183,7 @@ class _LoginPageState extends State<LoginPage>{
                               const SizedBox(height: 25),
                               InkWell(
                                   onTap: (){
-                                    Navigation.navigate(context, const SignupPage());
+                                    Navigation.navigateFromLeft(context, const SignupPage());
                                   },
                                   child: const Text(
                                     CaccoTxt.signUpTxt,

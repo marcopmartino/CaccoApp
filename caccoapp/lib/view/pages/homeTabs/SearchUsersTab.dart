@@ -2,6 +2,7 @@ import 'package:CaccoApp/helpers/LoginService.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../../network/UsersNetwork.dart';
+import '../../../utility/AppColors.dart';
 import '../../../utility/DocumentStreamBuilder.dart';
 import '../../../utility/Navigation.dart';
 import '../../item/Item.dart';
@@ -26,7 +27,7 @@ class _SearchUsersTabState extends State<SearchUsersTab>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-        backgroundColor: Colors.black54,
+        backgroundColor: AppColors.lightBlack,
         body: Column(
             children: [
               Padding(
@@ -50,7 +51,7 @@ class _SearchUsersTabState extends State<SearchUsersTab>{
                   scale: 1.5,
                   expanded: true,
                   onTap: (QueryDocumentSnapshot<Object?> user) {
-                    Navigation.navigate(context, UserDetailsPage(userId: user.id, username: user['username']));
+                    Navigation.navigateFromLeft(context, UserDetailsPage(userId: user.id, username: user['username']));
                   },
                   filterFunction: (List<QueryDocumentSnapshot<Object?>> data) {
                     List<QueryDocumentSnapshot<Object?>> filteredData = List.empty(growable: true);

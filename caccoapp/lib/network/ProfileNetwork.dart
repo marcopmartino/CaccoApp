@@ -29,6 +29,7 @@ class ProfileNetwork{
       await addUser(
           id: user.uid,
           username: user.displayName!,
+          groups: [],
           email: user.email!,
           gender: gender
       );
@@ -39,12 +40,16 @@ class ProfileNetwork{
     required String id,
     required String username,
     required String email,
+    required List<String> groups,
     required String gender}) async {
 
     final LoggedUser user = LoggedUser(
       id: id,
       username: username,
       email: email,
+      groups: groups,
+      lastMonthPoops: 0,
+      currentMonthPoops: 0,
       gender: gender,
     );
 
@@ -55,8 +60,8 @@ class ProfileNetwork{
     await FirebaseFirestore.instance.collection('caccos').doc(id)
         .set({'currentMonthPoops': 0, 'lastMonthPoops': 0});
 
-    await FirebaseFirestore.instance.collection('follow').doc(id)
-        .set({'following': 0, 'follower': 0});
+    //await FirebaseFirestore.instance.collection('follow').doc(id)
+       // .set({'following': 0, 'follower': 0});
 
     return null;
   }
@@ -77,6 +82,18 @@ class ProfileNetwork{
 
   static void updateProfile(LoggedUser user){
     _user.update(user.toMap());
+  }
+
+  static Future<void> increaseCaccoCounter() async {
+    await _user.update({'currentMonthPoops': FieldValue.increment(1)});
+  }
+
+  static void decreaseCaccoCounter() async{
+    await _user.update({'currentMonthPoops': FieldValue.increment(-1)});
+  }
+
+  static deleteProfile() async {
+    await _user.delete();
   }
 
 }

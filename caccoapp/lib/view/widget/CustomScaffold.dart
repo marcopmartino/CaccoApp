@@ -18,9 +18,9 @@ class CustomScaffold extends StatelessWidget {
     return Scaffold(
       appBar: withAppbar ? AppBar(
           backgroundColor: AppColors.mainBrown,
-          title: Text(title)
+          title: Text(title, style: const TextStyle(color: Colors.white),)
       ) : null,
-      backgroundColor: Colors.grey,
+      backgroundColor: AppColors.lightBlack,
       body: body,
       floatingActionButton: floatingActionButton,
       resizeToAvoidBottomInset: resize,

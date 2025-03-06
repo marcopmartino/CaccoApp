@@ -1,7 +1,9 @@
 
+import 'package:CaccoApp/network/CaccoNetwork.dart';
+import 'package:CaccoApp/network/GroupsNetwork.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -46,8 +48,6 @@ class LoginService extends ChangeNotifier{
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('isLoggedIn', true);
-    /*prefs.setString('userId', userCreds.user!.uid);
-    prefs.setString('username', userCreds.user!.displayName!);*/
 
     return true;
   }
@@ -63,7 +63,7 @@ class LoginService extends ChangeNotifier{
     return response["genders"][0]["formattedValue"];
   }
 
-  Future<void> googleSignOut() async{
+  static Future<void> googleSignOut() async{
     await GoogleSignIn().signOut();
     _userModel.logOut();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -90,12 +90,18 @@ class LoginService extends ChangeNotifier{
       user = auth.currentUser;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        if (kDebugMode) {
+          print('The password provided is too weak.');
+        }
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        if (kDebugMode) {
+          print('The account already exists for that email.');
+        }
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
 
     return user;
@@ -171,5 +177,46 @@ class LoginService extends ChangeNotifier{
       });
     }
     return;
+  }
+
+  static Future<void> deleteUser(String userId, String psw) async {
+    try {
+
+      FirebaseAuth user = FirebaseAuth.instance;
+      late AuthCredential credential;
+      final provider = FirebaseAuth.instance.currentUser!.providerData.first;
+
+      if(GoogleAuthProvider().providerId == provider.providerId){
+        GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
+        GoogleSignInAuthentication? providerAuthenticator = await googleSignInAccount?.authentication;
+        credential = GoogleAuthProvider.credential(
+            idToken: providerAuthenticator!.idToken,
+            accessToken: providerAuthenticator.accessToken
+        );
+      }else{
+         credential = EmailAuthProvider.credential(
+            email: user.currentUser!.email!,
+            password: psw
+        );
+      }
+
+      UserCredential result = await user.currentUser!.reauthenticateWithCredential(credential);
+      await GroupsNetwork.changeGroupsAdmin(userId);
+      await GroupsNetwork.exitFromAllGroups(userId);
+      await CaccoNetwork.removeUserCaccos(userId);
+      await ProfileNetwork.deleteProfile();
+      await result.user!.delete();
+      if (GoogleAuthProvider().providerId == provider.providerId){
+        await GoogleSignIn().disconnect();
+        await GoogleSignIn().signOut();
+      }
+      _userModel.logOut();
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.clear();
+    }catch(e){
+      if (kDebugMode){
+        print(e);
+      }
+    }
   }
 }

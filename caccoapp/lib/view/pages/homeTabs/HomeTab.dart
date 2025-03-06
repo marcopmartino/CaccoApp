@@ -2,8 +2,7 @@ import 'package:CaccoApp/helpers/LoginService.dart';
 import 'package:CaccoApp/network/CaccoNetwork.dart';
 import 'package:CaccoApp/utility/AppFontWeight.dart';
 import 'package:CaccoApp/utility/DocumentStreamBuilder.dart';
-import 'package:CaccoApp/view/pages/CaccoFormPage.dart';
-import 'package:CaccoApp/view/widget/TextWidgets.dart';
+import 'package:CaccoApp/view/pages/CaccoDetailsPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +10,6 @@ import '../../item/Item.dart';
 import '../../../utility/AppColors.dart';
 import '../../../utility/ListViewBuilders.dart';
 import '../../../utility/Navigation.dart';
-import '../../widget/CustomButton.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -39,18 +37,54 @@ class _HomeTabState extends State<HomeTab> {
     });
   }
 
+  Widget _noCacco(){
+    return Column(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 175.0, bottom: 20.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: Image.asset(
+                'assets/cryPoop.png',
+                height: 175.0,
+                width: 175.0,
+              ),
+            ),
+          ),
+        ),
+        const Expanded(
+          flex: 1,
+          child: Padding(
+            padding: EdgeInsets.only(top: 0.0),
+            child: Text(
+              "Nessun cacco da mostrare! \n Aggiungine uno ora!",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: AppFontWeight.semiBold,
+                color: AppColors.heavyBrown,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black54,
-        body: Padding(
-            padding: const EdgeInsets.only(top: 15, right: 5, left: 5, bottom: 10),
-            child: Column(
-              children: <Widget>[
-                DocumentStreamBuilder(
-                    stream: CaccoNetwork.getCaccosInfo(null),
-                    builder: (BuildContext context, DocumentSnapshot<Object?> data) {
-                      return Card(
+      backgroundColor: AppColors.lightBlack,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 15, right: 5, left: 5, bottom: 10),
+        child: Column(
+          children: <Widget>[
+            DocumentStreamBuilder(
+              stream: CaccoNetwork.getCaccosInfo(null),
+              builder: (BuildContext context, DocumentSnapshot<Object?> data) {
+                return Card(
                           margin: const EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
                           clipBehavior: Clip.antiAlias,
                           color: Colors.grey,
@@ -123,71 +157,60 @@ class _HomeTabState extends State<HomeTab> {
                                       )),
                                 ],
                               ),
-                              /*const Divider(indent: 36, endIndent: 36, color: Colors.yellow),
-                              CustomButtons.submit("Aggiungi cacco",
-                                  onPressed: () => Navigation.navigate(context, CaccoFormPage()))*/
                             ]),
                           ));
-                    }),
-                //const Divider(indent: 36, endIndent: 36, color: Colors.yellow),
-                Expanded(
-                    flex: 1,
-                    child: SizedBox(
-                        width: double.infinity,
-                        child: SingleChildScrollView(
-                            child: ConstrainedBox(
-                                constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height - 350),
-                                child: QueryStreamBuilder(
-                                    stream: CaccoNetwork.getCurrentUserCaccos(),
-                                    builder: (BuildContext context, QuerySnapshot<Object?> data) {
-                                      List<QueryDocumentSnapshot<Object?>> docs = data.docs;
-                                      if (docs.isEmpty) {
-                                        return const Center(
-                                            child: TextWidget("Nessun cacco da mostrare",
-                                                fontSize: 18,
-                                                fontWeight: AppFontWeight.semiBold,
-                                                textColor: AppColors.heavyBrown));
-                                      } else {
-                                        List<QueryDocumentSnapshot<Object?>> recentCaccos = List.empty(growable: true);
-                                        //Ordina dalla piÃ¹ recente
-                                        docs.sort(
-                                            (a, b) => b['timeStamp'].toString().compareTo(a['timeStamp'].toString()));
+              }),
+            Expanded(
+              flex: 1,
+              child: SizedBox(
+                width: double.infinity,
+                child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height - 350),
+                    child: QueryStreamBuilder(
+                      stream: CaccoNetwork.getCurrentUserCaccos(),
+                      builder: (BuildContext context, QuerySnapshot<Object?> data) {
+                        List<QueryDocumentSnapshot<Object?>> docs = data.docs;
+                        if (docs.isEmpty) {
+                          return _noCacco();
+                        } else {
+                          List<QueryDocumentSnapshot<Object?>> recentCaccos = List.empty(growable: true);
+                          //Ordina dalla piu´ recente
+                          docs.sort(
+                            (a, b) => b['timeStamp'].toString().compareTo(a['timeStamp'].toString()));
 
-                                        int index = 0;
-                                        int size = docs.length;
-                                        while (index < size) {
-                                          recentCaccos.add(docs[index]);
-                                          index++;
-                                        }
+                          int index = 0;
+                          int size = docs.length;
+                          while (index < size) {
+                            recentCaccos.add(docs[index]);
+                            index++;
+                          }
 
-                                        if (recentCaccos.isEmpty) {
-                                          return const TextWidget("Nessun cacco da mostrare",
-                                              fontSize: 18,
-                                              fontWeight: AppFontWeight.semiBold,
-                                              textColor: AppColors.heavyBrown);
-                                        } else {
-                                          thereIsListView = true;
-                                          return ListViewBuilder(
-                                            data: recentCaccos,
-                                            itemType: ItemType.CACCO_HOME_VIEW,
-                                            scale: 1.0,
-                                            shrinkWrap: true,
-                                            scrollPhysics: !thereIsListView ? const NeverScrollableScrollPhysics() :
-                                                const AlwaysScrollableScrollPhysics(),
-                                            onTap: (QueryDocumentSnapshot<Object?> cacco) {
-                                              Navigation.navigate(context, CaccoFormPage());
-                                            },
-                                          );
-                                        }
-                                      }
-                                    })
-                            )
-                        )
-                    )
+                          if (recentCaccos.isEmpty) {
+                            return _noCacco();
+                          } else {
+                            thereIsListView = true;
+                            return ListViewBuilder(
+                              data: recentCaccos,
+                              itemType: ItemType.CACCO_HOME_VIEW,
+                              scale: 1.0,
+                              shrinkWrap: true,
+                              scrollPhysics: !thereIsListView ? const NeverScrollableScrollPhysics() :
+                                const AlwaysScrollableScrollPhysics(),
+                              onTap: (QueryDocumentSnapshot<Object?> cacco) {
+                                Navigation.navigateFromLeft(context, CaccoDetailsPage(caccoId: cacco.id, caccoName: cacco['name']));
+                                },
+                            );
+                          }
+                        }
+                      })
+                  )
                 )
-              ],
+              )
             )
+          ],
         )
+      )
     );
   }
 }

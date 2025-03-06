@@ -5,16 +5,16 @@ class User{
   final String? username;
   final String? email;
   final String? gender;
-  final int? currentMonthPoop;
-  final int? lastMonthPoop;
+  final int? currentMonthPoops;
+  final int? lastMonthPoops;
 
   User({
     this.id,
     required this.username,
     required this.email,
     required this.gender,
-    this.currentMonthPoop = 0,
-    this.lastMonthPoop = 0,
+    this.currentMonthPoops = 0,
+    this.lastMonthPoops = 0
   });
 
   Map<String, dynamic> toMap() {
@@ -22,27 +22,27 @@ class User{
       'username': username,
       'email': email,
       'gender': gender,
-      'currentMonthPoop': currentMonthPoop,
-      'lastMonthPoop': lastMonthPoop,
+      'currentMonthPoops': currentMonthPoops,
+      'lastMonthPoops': lastMonthPoops
     };
   }
 
   User.fromMap(Map<String, dynamic> profileMap) :
-    id = profileMap['id'],
-    username = profileMap['username'],
-    email = profileMap['email'],
-    gender = profileMap['gender'],
-    currentMonthPoop = profileMap['currentMonthPoop'],
-    lastMonthPoop = profileMap['lastMonthPoop'];
+        id = profileMap['id'],
+        username = profileMap['username'],
+        email = profileMap['email'],
+        gender = profileMap['gender'],
+        currentMonthPoops = profileMap['currentMonthPoops'],
+        lastMonthPoops = profileMap['lastMonthPoops'];
 
 
   User.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc):
-    id = doc.id,
-    username = doc.data()!['username'],
-    email = doc.data()!['email'],
-    gender = doc.data()!['gender'],
-    currentMonthPoop = doc.data()!['currentMonthPoop'],
-    lastMonthPoop = doc.data()!['lastMonthPoop'];
+        id = doc.id,
+        username = doc.data()!['username'],
+        email = doc.data()!['email'],
+        gender = doc.data()!['gender'],
+        currentMonthPoops = doc.data()!['currentMonthPoops'],
+        lastMonthPoops = doc.data()!['lastMonthPoops'];
 
   String? getId(){
     return id;
